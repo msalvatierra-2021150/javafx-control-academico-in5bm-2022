@@ -1,0 +1,109 @@
+/* 
+    Created on : Apr 7, 2022, 9:18:27 AM
+    *author Michael Steven Salvatierra Ramirez
+    * Carne: 2021150
+    * Grado: 5to perito en Informatica 
+    * Seccion y grupo: IN5BM Grupo 2 (Lunes)
+    * Catedratico: Lic. Jorge Luis Perez Canto
+*/
+
+#borde-izquierdo{
+    -fx-background-color: #0A0A34;
+}
+
+#titulo{
+    -fx-background-color: #B5B5B5;
+}
+
+
+#pane-fondo{
+     -fx-background-color: #D0D0D0;
+}
+
+#upper-pane{
+    /*-fx-background-color: #D0D0D0;*/
+    -fx-background-color: #B5B5B5;
+    -fx-background-radius: 0 0 60 60
+}
+
+#boton-create{
+    -fx-background-radius:15px;
+    -fx-background-color: #F39C12;
+}
+
+#boton-create:hover{
+    -fx-background-radius:15px;
+    -fx-background-color: #FEB236;
+}
+
+
+#boton-update{
+    -fx-background-radius:15px;
+    -fx-background-color: #006600;
+}
+
+#boton-update:hover{
+    -fx-background-radius:15px;
+    -fx-background-color: #6B8E23;
+}
+
+
+#boton-delete{
+    -fx-background-radius:15px;
+    -fx-background-color: #C00000;
+}
+
+#boton-delete{
+    -fx-background-radius:15px;
+    -fx-background-color: #C00000;
+}
+
+#boton-delete:hover{
+    -fx-background-radius:15px;
+    -fx-background-color: #E74C3C;
+}
+
+#boton-report{
+    -fx-background-radius:15px;
+    -fx-background-color: #458588;
+}
+
+#boton-report:hover{
+    -fx-background-radius:15px;
+    -fx-background-color: #87bdd8;
+}
+
+.text-boxes{
+    -fx-background-color: #B5B5B5;
+}
+
+.table{
+    -fx-background-color: #B5B5B5;
+}
+
+#boton-atras{
+    -fx-background-color: #0A0A34; 
+}
+
+#boton-atras:hover{
+    -fx-background-color: #2a6496; 
+}
+
+#boton-save{
+    -fx-background-radius:15px;
+     -fx-background-color: #03BB85;
+}
+
+#boton-save:hover{
+     -fx-background-color: #8EC07C;
+}
+
+#boton-cancel{
+    -fx-background-radius:15px;
+    -fx-background-color: #C00000;
+}
+
+#boton-cancel:hover{
+    -fx-background-radius:15px;
+    -fx-background-color: #E74C3C;
+}

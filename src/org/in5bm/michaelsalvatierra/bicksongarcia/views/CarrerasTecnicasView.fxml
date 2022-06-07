@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.in5bm.michaelsalvatierra.bicksongarcia.controllers.CarrerasTecnicasController">
+   <children>
+      <AnchorPane id="borde-izquierdo" prefHeight="602.0" prefWidth="246.0" stylesheets="@../resources/css/EstiloModulo.css">
+         <children>
+            <Pane id="upper-pane" layoutX="36.0" prefHeight="179.0" prefWidth="168.0" stylesheets="@../resources/css/EstiloModulo.css">
+               <children>
+                  <ImageView fitHeight="136.0" fitWidth="150.0" layoutX="20.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/carreras%20tecnicas-module.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <VBox layoutX="46.0" layoutY="200.0" prefHeight="381.0" prefWidth="154.0" spacing="20.0">
+               <children>
+                  <Button id="boton-create" fx:id="btnCrear" mnemonicParsing="false" onAction="#clickCrear" prefHeight="80.0" prefWidth="150.0" stylesheets="@../resources/css/EstiloModulo.css">
+                     <graphic>
+                        <ImageView fx:id="imgCrear" fitHeight="47.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/crear-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="boton-update" fx:id="btnModificar" mnemonicParsing="false" onAction="#clickModificar" prefHeight="80.0" prefWidth="150.0" stylesheets="@../resources/css/EstiloModulo.css">
+                     <graphic>
+                        <ImageView fx:id="imgModificar" fitHeight="49.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/button-modificar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="boton-delete" fx:id="btnEliminar" mnemonicParsing="false" onAction="#clickEliminar" prefHeight="80.0" prefWidth="150.0" stylesheets="@../resources/css/EstiloModulo.css">
+                     <graphic>
+                        <ImageView fx:id="imgEliminar" fitHeight="68.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/button-eliminar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="boton-report" fx:id="btnReporte" mnemonicParsing="false" onAction="#clickReporte" prefHeight="80.0" prefWidth="150.0" stylesheets="@../resources/css/EstiloModulo.css">
+                     <graphic>
+                        <ImageView id="boton-reporte" fitHeight="54.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/button-report.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <Pane id="pane-fondo" layoutX="246.0" prefHeight="602.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
+         <children>
+            <Pane id="titulo" layoutY="-8.0" prefHeight="128.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="306.0" layoutX="236.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/logo-colegio.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <GridPane layoutX="19.0" layoutY="152.0" prefHeight="409.0" prefWidth="168.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.20001220703125" minWidth="10.0" prefWidth="107.200048828125" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="259.80001373291014" minHeight="10.0" prefHeight="82.4" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="266.80001068115234" minHeight="10.0" prefHeight="92.79999389648438" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="266.80001068115234" minHeight="10.0" prefHeight="92.79999389648438" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="269.1999755859375" minHeight="0.0" prefHeight="90.4000244140625" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="269.1999755859375" minHeight="10.0" prefHeight="90.4000244140625" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="269.1999755859375" minHeight="10.0" prefHeight="90.4000244140625" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="266.80001068115234" minHeight="10.0" prefHeight="92.79999389648438" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="88.79998779296875" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="88.79998779296875" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="249.0" minHeight="10.0" prefHeight="88.79998779296875" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="217.60001220703128" minHeight="10.0" prefHeight="84.80001220703127" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="217.60001220703128" minHeight="10.0" prefHeight="84.80001220703127" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="217.60001220703128" minHeight="10.0" prefHeight="84.80001220703127" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="217.60001220703128" minHeight="10.0" prefHeight="84.80001220703127" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="217.60001220703128" minHeight="10.0" prefHeight="84.80001220703127" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Sección:" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblAdvertenciaCarrera" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="2" />
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Carrera:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Grado:" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblAdvertenciaGrado" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="5" />
+                  <Label fx:id="lblAdvertenciaSeccion" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="8" />
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Jornada:" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Código técnico:" GridPane.rowIndex="12">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblAdvertenciaJornada" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="11" />
+                  <Label fx:id="lblAdvertenciaCodigoTecnico" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="14" />
+                  <TextField fx:id="txtCarrera" disable="true" styleClass="text-boxes" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtGrado" disable="true" styleClass="text-boxes" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtSeccion" disable="true" styleClass="text-boxes" GridPane.rowIndex="7" />
+                  <TextField fx:id="txtJornada" disable="true" styleClass="text-boxes" GridPane.rowIndex="10" />
+                  <TextField fx:id="txtCodigoTecnico" disable="true" styleClass="text-boxes" GridPane.rowIndex="13" />
+               </children>
+            </GridPane>
+            <TableView fx:id="tblCarrerasTecnicas" layoutX="215.0" layoutY="166.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="381.0" prefWidth="534.0" styleClass="table">
+              <columns>
+                <TableColumn fx:id="colCodigoTecnico" prefWidth="95.19998168945312" text="Código técnico" />
+                <TableColumn fx:id="colCarrera" prefWidth="143.199951171875" text="Carrera" />
+                  <TableColumn fx:id="colGrado" minWidth="1.5999755859375" prefWidth="140.00006103515625" text="Grado" />
+                  <TableColumn fx:id="colSeccion" minWidth="0.0" prefWidth="81.59991455078125" text="Seccion" />
+                  <TableColumn fx:id="colJornada" minWidth="0.0" prefWidth="74.39990234375" text="Jornada" />
+              </columns>
+            </TableView>
+            <Button id="boton-atras" fx:id="btnAtras" layoutX="660.0" layoutY="556.0" mnemonicParsing="false" onAction="#clickRegresar" prefHeight="25.0" prefWidth="89.0" text="ATRÁS" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

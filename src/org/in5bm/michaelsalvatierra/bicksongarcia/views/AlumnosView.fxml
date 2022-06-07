@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.in5bm.michaelsalvatierra.bicksongarcia.controllers.AlumnosController">
+   <children>
+      <AnchorPane id="borde-izquierdo" prefHeight="602.0" prefWidth="246.0" stylesheets="@../resources/css/EstiloModulo.css">
+         <children>
+            <Pane id="upper-pane" layoutX="36.0" prefHeight="179.0" prefWidth="168.0" stylesheets="@../resources/css/EstiloModulo.css">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="154.0" layoutX="7.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/alumnos-module.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <VBox layoutX="43.0" layoutY="196.0" prefHeight="381.0" prefWidth="154.0" spacing="20.0">
+               <children>
+                  <Button id="boton-create" fx:id="btnCrear" mnemonicParsing="false" onAction="#clickCrear" prefHeight="80.0" prefWidth="150.0" stylesheets="@../resources/css/EstiloModulo.css">
+                     <graphic>
+                        <ImageView fx:id="imgCrear" fitHeight="47.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/crear-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="boton-update" fx:id="btnModificar" mnemonicParsing="false" onAction="#clickModificar" prefHeight="80.0" prefWidth="150.0" stylesheets="@../resources/css/EstiloModulo.css">
+                     <graphic>
+                        <ImageView fx:id="imgModificar" fitHeight="49.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/button-modificar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="boton-delete" fx:id="btnEliminar" mnemonicParsing="false" onAction="#clickEliminar" prefHeight="80.0" prefWidth="150.0" stylesheets="@../resources/css/EstiloModulo.css">
+                     <graphic>
+                        <ImageView fx:id="imgEliminar" fitHeight="68.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/button-eliminar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="boton-report" fx:id="btnReporte" mnemonicParsing="false" onAction="#clickReporte" prefHeight="80.0" prefWidth="150.0" stylesheets="@../resources/css/EstiloModulo.css">
+                     <graphic>
+                        <ImageView id="boton-reporte" fx:id="imgReporte" fitHeight="54.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/button-report.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <Pane id="pane-fondo" layoutX="246.0" prefHeight="602.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
+         <children>
+            <Pane id="titulo" layoutY="-2.0" prefHeight="128.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="306.0" layoutX="243.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/logo-colegio.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <GridPane layoutX="20.0" layoutY="142.0" prefHeight="429.0" prefWidth="168.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.20001220703125" minWidth="10.0" prefWidth="107.200048828125" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="txtNombre1" disable="true" editable="false" prefHeight="26.0" prefWidth="120.0" styleClass="text-boxes" stylesheets="@../resources/css/EstiloModulo.css" GridPane.rowIndex="4" />
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Primer nombre:" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNombre2" disable="true" editable="false" prefHeight="26.0" prefWidth="120.0" styleClass="text-boxes" GridPane.rowIndex="7" />
+                  <TextField fx:id="txtNombre3" disable="true" editable="false" prefHeight="26.0" prefWidth="120.0" styleClass="text-boxes" stylesheets="@../resources/css/EstiloModulo.css" GridPane.rowIndex="10" />
+                  <TextField fx:id="txtApellido1" disable="true" editable="false" prefHeight="26.0" prefWidth="120.0" styleClass="text-boxes" stylesheets="@../resources/css/EstiloModulo.css" GridPane.rowIndex="13" />
+                  <TextField fx:id="txtApellido2" disable="true" editable="false" prefHeight="26.0" prefWidth="120.0" styleClass="text-boxes" GridPane.rowIndex="16" />
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Segundo nombre:" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Tercer nombre:" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Primer apellido:" GridPane.rowIndex="12">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Segundo apellido:" GridPane.rowIndex="15">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="124.0" text="Carné: ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblAdvertenciaNombre1" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="5" />
+                  <Label fx:id="lblAdvertenciaApellido1" prefHeight="6.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="14" />
+                  <TextField fx:id="txtCarne" disable="true" editable="false" prefHeight="26.0" prefWidth="120.0" styleClass="text-boxes" stylesheets="@../resources/css/EstiloModulo.css" GridPane.rowIndex="1" />
+                  <Label fx:id="lblAdvertenciaCarne" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="2" />
+                  <Label fx:id="lblAdvertenciaNombre2" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="8" />
+                  <Label fx:id="lblAdvertenciaNombre3" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="11" />
+                  <Label fx:id="lblAdvertenciaApellido2" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="17" />
+               </children>
+            </GridPane>
+            <TableView fx:id="tblAlumnos" layoutX="215.0" layoutY="166.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="381.0" prefWidth="534.0" styleClass="table">
+              <columns>
+                <TableColumn fx:id="colCarne" prefWidth="65.60003662109375" text="Carné" />
+                <TableColumn fx:id="colNombre1" prefWidth="96.79998779296875" text="1er. Nombre" />
+                  <TableColumn fx:id="colNombre2" prefWidth="90.39996337890625" text="2do Nombre" />
+                  <TableColumn fx:id="colNombre3" prefWidth="88.00006103515625" text="3er. Nombre" />
+                  <TableColumn fx:id="colApellido1" prefWidth="98.4000244140625" text="1er. Apellido" />
+                  <TableColumn fx:id="colApellido2" prefWidth="91.5999755859375" text="2do. Apellido" />
+              </columns>
+            </TableView>
+            <Button id="boton-atras" fx:id="btnAtras" layoutX="660.0" layoutY="556.0" mnemonicParsing="false" onAction="#clickRegresar" prefHeight="25.0" prefWidth="89.0" text="ATRÁS" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
