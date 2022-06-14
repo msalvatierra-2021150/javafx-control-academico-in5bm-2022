@@ -33,8 +33,6 @@ import org.in5bm.michaelsalvatierra.bicksongarcia.system.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 /**
  *
  * @date Apr 19, 2022
@@ -461,7 +459,7 @@ public class AlumnosController implements Initializable{
         txtApellido2.setText("");
     }
     
-     private ObservableList getAlumnos(){
+    private ObservableList getAlumnos(){
         List <Alumnos> lista= new ArrayList<>();
         CallableStatement sentencia = null;
         ResultSet rs = null;

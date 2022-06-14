@@ -1,10 +1,14 @@
 package org.in5bm.michaelsalvatierra.bicksongarcia.controllers;
 
+import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.net.URL;
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -70,9 +74,7 @@ public class AsignacionesAlumnosController implements Initializable {
     @FXML
     private DatePicker dpkFechaDeAsignacion;
     @FXML
-    private String txtId;
-    @FXML
-    private String lblId;
+    private Label lblId;
     @FXML
     private Label lblAdvertenciaCarne;
     @FXML
@@ -102,9 +104,11 @@ public class AsignacionesAlumnosController implements Initializable {
     @FXML
     private ImageView imgEliminar;
     
-    private AsignacionesAlumnos AsignacionesSelect;
-    private ObservableList<AsignacionesAlumnos> listaCursos;
+    private AsignacionesAlumnos AsignacionesSelect = new AsignacionesAlumnos();
+    private ObservableList<AsignacionesAlumnos> listaAsignacionesAlumnos;
     
+    private ObservableList<Alumnos> listaAlumnos;
+    private ObservableList<Cursos> listaCursos;
     Principal escenarioPrincipal = new Principal();
 
     public Principal getEscenarioPrincipal() {
@@ -117,7 +121,7 @@ public class AsignacionesAlumnosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        cargarAsignacionesAlumnos();
     }    
     
      private final String PAQUETE_IMAGES = "org/in5bm/michaelsalvatierra/bicksongarcia/resources/images/";
@@ -140,9 +144,9 @@ public class AsignacionesAlumnosController implements Initializable {
                 break;
             case GUARDAR:
                 if (validaciones()) {
-                    //if (agregarSalones()) {
+                    if (agregarAsignacionesAlumnos()) {
                         tblAsignacionDeAlumnos.setDisable(false);
-                        cargarCursos();
+                        cargarAsignacionesAlumnos();
                         limpiarCampos();
                         deshabilitarCampos();
                         imgCrear.setFitHeight(70);
@@ -159,7 +163,7 @@ public class AsignacionesAlumnosController implements Initializable {
                         alerta.initStyle(StageStyle.UTILITY);
                         alerta.showAndWait();
                         operacion = Operacion.NINGUNO;
-                    //}
+                    }
                 }
                 break;
         }
@@ -191,9 +195,9 @@ public class AsignacionesAlumnosController implements Initializable {
 
                     if (result.get() == ButtonType.OK) {
                         deshabilitarCampos();
-                        //if (eliminarAlumnos()) {
-                            //listaSalones.remove(tblSalones.getSelectionModel().getFocusedIndex());
-                            cargarCursos();
+                        if (eliminarAsignacion()) {
+                            listaAsignacionesAlumnos.remove(tblAsignacionDeAlumnos.getSelectionModel().getFocusedIndex());
+                            cargarAsignacionesAlumnos();
                             limpiarCampos();
                             deshabilitarCampos();
                             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
@@ -203,7 +207,7 @@ public class AsignacionesAlumnosController implements Initializable {
                             alerta.initStyle(StageStyle.UTILITY);
                             AsignacionesSelect = null;
                             alerta.showAndWait();
-                        //}
+                        }
                     } else {
                         tblAsignacionDeAlumnos.getSelectionModel().clearSelection();
                         limpiarCampos();
@@ -245,8 +249,8 @@ public class AsignacionesAlumnosController implements Initializable {
             case ACTUALIZAR:
                 if (existeElementoSeleccionado()) {
                     if (validaciones()) {
-                       // if (actualizarSalones()) {
-                            cargarCursos();
+                        if (actualizarAsignaciones()) {
+                            cargarAsignacionesAlumnos();
                             btnReporte.setDisable(false);
                             btnCrear.setDisable(false);
                             imgEliminar.setImage(new Image(PAQUETE_IMAGES + "button-eliminar.png"));
@@ -261,7 +265,7 @@ public class AsignacionesAlumnosController implements Initializable {
                             tblAsignacionDeAlumnos.getSelectionModel().clearSelection();
                             limpiarCampos();
                             deshabilitarCampos();
-                        //}
+                        }
                     }
                 }
                 break;
@@ -293,29 +297,24 @@ public class AsignacionesAlumnosController implements Initializable {
     }
 
     private void habilitarCampos() {
-        txtId.setDisable(false);
+        lblId.setDisable(false);
         cmbCarneAlumno.setDisable(false);
         dpkFechaDeAsignacion.setDisable(false);
         cmbIdCurso.setDisable(false);
     }
     
     private void deshabilitarCampos() {
-        txtId.setDisable(true);
+        lblId.setDisable(true);
         cmbCarneAlumno.setDisable(true);
         dpkFechaDeAsignacion.setDisable(true);
         cmbIdCurso.setDisable(true);
     }
     
     private void limpiarCampos() {
-        txtId.setText("");
-        txtNombreDelCurso.setText("");
-        spnCiclo.getValueFactory().setValue(2022);
-        spnCupoMaximo.getValueFactory().setValue(1);
-        spnCupoMinimo.getValueFactory().setValue(1);
-        cmbIdCarreraTecnica.valueProperty().set(null);
-        cmbIdHorario.valueProperty().set(null);
-        cmbIdInstructor.valueProperty().set(null);
-        cmbIdSalon.valueProperty().set(null);
+        lblId.setText("");
+        cmbCarneAlumno.valueProperty().set(null);
+        cmbIdCurso.valueProperty().set(null);
+        dpkFechaDeAsignacion.getEditor().clear();
     }
     
         private void reporte() {
@@ -328,19 +327,252 @@ public class AsignacionesAlumnosController implements Initializable {
         reporte.showAndWait();
     }
     
+        
+    private boolean actualizarAsignaciones() {
+        AsignacionesAlumnos asignacion = new AsignacionesAlumnos();
+        asignacion.setId(Integer.parseInt(lblId.getText()));
+        asignacion.setAlumnoId((cmbCarneAlumno.getSelectionModel().getSelectedItem()).getCarne());
+        asignacion.setCursoId((cmbIdCurso.getSelectionModel().getSelectedItem()).getId());
+        asignacion.setFechaAsignacion(dpkFechaDeAsignacion.getValue().atStartOfDay());
+        
+        PreparedStatement pstmt = null;
+        try{
+            String SQL ="{CALL sp_asignaciones_update(?,?,?,?)}";
+            pstmt = Conexion.getInstance().getConnection().prepareCall(SQL);
+           
+            pstmt.setInt(1,asignacion.getId());
+            pstmt.setString(2,asignacion.getAlumnoId());
+            pstmt.setInt(3,asignacion.getCursoId());
+            pstmt.setTimestamp(4, Timestamp.valueOf(asignacion.getFechaAsignacion()));
+            
+            System.out.println(pstmt.toString());
+            pstmt.execute();
+            listaAsignacionesAlumnos.add(asignacion);
+            return true;
+        }catch(SQLException e){
+            System.err.println("\nSe produjo un error al intentar insertar la siquiente asignacion "+asignacion.toString());
+            e.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+       }finally{
+            try{
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+    
+    private boolean agregarAsignacionesAlumnos() {
+        AsignacionesAlumnos asignacion = new AsignacionesAlumnos();
+        asignacion.setAlumnoId((cmbCarneAlumno.getSelectionModel().getSelectedItem()).getCarne());
+        asignacion.setCursoId((cmbIdCurso.getSelectionModel().getSelectedItem()).getId());
+        asignacion.setFechaAsignacion(dpkFechaDeAsignacion.getValue().atStartOfDay());
+        
+        PreparedStatement pstmt = null;
+        try{
+            String SQL ="{CALL sp_asignaciones_create(?,?,?)}";
+            pstmt = Conexion.getInstance().getConnection().prepareCall(SQL);
+           
+            pstmt.setString(1,asignacion.getAlumnoId());
+            pstmt.setInt(2,asignacion.getCursoId());
+            pstmt.setTimestamp(3, Timestamp.valueOf(asignacion.getFechaAsignacion()));
+            
+            System.out.println(pstmt.toString());
+            pstmt.execute();
+            listaAsignacionesAlumnos.add(asignacion);
+            return true;
+        }catch(SQLException e){
+            System.err.println("\nSe produjo un error al intentar insertar la siquiente asignacion "+asignacion.toString());
+            e.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+       }finally{
+            try{
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }    
+    
+    public boolean eliminarAsignacion(){
+        AsignacionesAlumnos asignacion = ((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem());
+        PreparedStatement pstmt = null;
+        try{
+                String SQL = "{CALL sp_asignaciones_delete(?)}";
+                pstmt = Conexion.getInstance().getConnection().prepareCall(SQL);
+                pstmt.setInt(1, asignacion.getId());
+                System.out.println(pstmt);
+                pstmt.execute();
+                listaAsignacionesAlumnos.remove(tblAsignacionDeAlumnos.getSelectionModel().getFocusedIndex());
+                return true;
+            }catch(SQLException e){
+                System.err.println("\n Se produjo un error al tratar de eliminar el siguiente registro "+asignacion.toString());
+                e.printStackTrace();
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                try {
+                    if (pstmt != null) {
+                        pstmt.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        return false;
+    }
+        
+    private ObservableList getAsignacionesAlumnos() {
+       ArrayList<AsignacionesAlumnos> arrayListAsignaciones = new ArrayList<>();
+       PreparedStatement pstmt = null;
+       ResultSet rs = null;
+       try {
+           String SQL = "{CALL sp_asignaciones_read()}";
+           pstmt = Conexion.getInstance().getConnection().prepareCall(SQL);
+           
+           rs = pstmt.executeQuery();
+           while(rs.next()){
+               AsignacionesAlumnos asignacion = new AsignacionesAlumnos();
+               asignacion.setId(rs.getInt(1));
+               asignacion.setAlumnoId(rs.getString(2));
+               asignacion.setCursoId(rs.getInt(3));
+               asignacion.setFechaAsignacion(rs.getTimestamp(4).toLocalDateTime());
+               System.out.println(asignacion.toString());
+               arrayListAsignaciones.add(asignacion);
+           }
+           listaAsignacionesAlumnos = FXCollections.observableArrayList(arrayListAsignaciones);
+        } catch (SQLException e) {
+            System.err.println("\nSe Produjo u error al intentar consultarla lista de Asignaciones Alumnos");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Ocurrio un error al listar " + e.getMessage());
+            System.err.println("Track del error ");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listaAsignacionesAlumnos;
+    }
+    
+    private ObservableList getAlumnos(){
+        List <Alumnos> lista= new ArrayList<>();
+        CallableStatement sentencia = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "{CALL sp_alumnos_read()}";
+            
+            sentencia = Conexion.getInstance().getConnection().prepareCall(SQL);
+            rs = sentencia.executeQuery();
+            System.out.println("");
+            while(rs.next() == true){
+                Alumnos alumno = new Alumnos();
+                alumno.setCarne(rs.getString(1));
+                alumno.setNombre1(rs.getString(2));
+                alumno.setNombre2(rs.getString(3));
+                alumno.setNombre3(rs.getString(4));
+                alumno.setApellido1(rs.getString(5));
+                alumno.setApellido2(rs.getString(6));
+                lista.add(alumno);
+                System.out.println(alumno.toString());
+            }
+            System.out.println("");
+            listaAlumnos = FXCollections.observableArrayList(lista);
+            
+        } catch (SQLException e) {
+            System.err.println("\nSe Produjo u error al intentar consultarla lista de Alumnos");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Ocurrio un error al listar "+e.getMessage());
+            System.err.println("Track del error ");
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rs != null){
+                    rs.close();
+                }
+                if(sentencia != null){
+                    sentencia.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return listaAlumnos;
+    }
+    
+    private Alumnos buscarAlumnos(String id){
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Alumnos alumno = new Alumnos();
+        try {
+            String SQL = "{CALL sp_alumnos_read_by(?)}";
+            pstmt = Conexion.getInstance().getConnection().prepareCall(SQL);
+            pstmt.setString(1, id);
+            System.out.println(pstmt.toString());
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                
+                alumno.setCarne(rs.getString(1));
+                alumno.setNombre1(rs.getString(2));
+                alumno.setNombre2(rs.getString(3));
+                alumno.setNombre3(rs.getString(4));
+                alumno.setApellido1(rs.getString(5));
+                alumno.setApellido2(rs.getString(6));
+                System.out.println(alumno.toString());
+            }    
+            System.out.println("");           
+        } catch (SQLException e) {
+            System.err.println("\nSe Produjo u error al intentar consultarla lista de Alumnos");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Ocurrio un error al listar "+e.getMessage());
+            System.err.println("Track del error ");
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rs != null){
+                    rs.close();
+                }
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return alumno;
+    }
+    
     private ObservableList getCursos() {
         List<Cursos> lista = new ArrayList<>();
         CallableStatement sentencia = null;
         ResultSet rs = null;
         try {
-            String SQL = "CALL sp_cursos_read();";
+            String SQL = "{CALL sp_cursos_read()}";
             sentencia = Conexion.getInstance().getConnection().prepareCall(SQL);
             rs = sentencia.executeQuery();
             while (rs.next() == true) {
                 Cursos curso = new Cursos();
                 curso.setId(rs.getInt(1));
                 curso.setNombreCurso(rs.getString(2));
-                curso.setCiclo(rs.getString(3).substring(0,4));
+                curso.setCiclo(rs.getInt(3));
                 curso.setCupoMaximo(rs.getInt(4));
                 curso.setCupoMinimo(rs.getInt(5));
                 curso.setCarreraTecnicaId(rs.getString(6));
@@ -373,14 +605,63 @@ public class AsignacionesAlumnosController implements Initializable {
         return listaCursos;
     }
     
-    private void cargarCursos() {
-        tblAsignacionDeAlumnos.setItems(getCursos());
-        colId.setCellValueFactory(new PropertyValueFactory("id"));
+    private Cursos buscarCursos(int id){
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Cursos curso = new Cursos();
+        try {
+            String SQL = "{CALL sp_cursos_read_by(?)}";
+            pstmt = Conexion.getInstance().getConnection().prepareCall(SQL);
+            pstmt.setInt(1, id);
+            System.out.println(pstmt.toString());
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                curso.setId(rs.getInt(1));
+                curso.setNombreCurso(rs.getString(2));
+                curso.setCiclo(rs.getInt(3));
+                curso.setCupoMaximo(rs.getInt(4));
+                curso.setCupoMinimo(rs.getInt(5));
+                curso.setCarreraTecnicaId(rs.getString(6));
+                curso.setHorarioId(rs.getInt(7));
+                curso.setInstructorId(rs.getInt(8));
+                curso.setSalonId(rs.getString(9));
+                System.out.println(curso.toString());
+            }    
+            System.out.println("");           
+        } catch (SQLException e) {
+            System.err.println("\nSe Produjo u error al intentar consultarla lista de Alumnos");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Ocurrio un error al listar "+e.getMessage());
+            System.err.println("Track del error ");
+            e.printStackTrace();
+        }finally{
+            try{
+                if(rs != null){
+                    rs.close();
+                }
+                if(pstmt != null){
+                    pstmt.close();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return curso;        
+    }
+    
+    private void cargarAsignacionesAlumnos() {
+        tblAsignacionDeAlumnos.setItems(getAsignacionesAlumnos());
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colCarneAlumno.setCellValueFactory(new PropertyValueFactory<>("alumnoId"));
-        colnombreAlumno.setCellValueFactory(new PropertyValueFactory<>("nombreAlumno"));
-        colNombreCurso.setCellValueFactory(new PropertyValueFactory<>("nombreCurso"));
-        colIdCurso.setCellValueFactory(new PropertyValueFactory<>("idCurso"));
+        colIdCurso.setCellValueFactory(new PropertyValueFactory<>("cursoId"));
         colFechaAsignacion.setCellValueFactory(new PropertyValueFactory<>("fechaAsignacion"));
+        
+        ObservableList<Alumnos> listaAlumnos = FXCollections.observableArrayList(getAlumnos());
+        cmbCarneAlumno.getItems().addAll(listaAlumnos);
+        
+        ObservableList<Cursos> listaCursos = FXCollections.observableArrayList(getCursos());
+        cmbIdCurso.getItems().addAll(listaCursos);
     }
     
         private boolean validaciones() {
@@ -391,11 +672,11 @@ public class AsignacionesAlumnosController implements Initializable {
         boolean validacion5=true;
         boolean validacion6=true;
         
-            if ((cmbCarneAlumno.getValue().toString()).equals("")) {
+            if ((cmbCarneAlumno.getSelectionModel().getSelectedItem() == null)) {
                 validacion1=false;
                 lblAdvertenciaCarne.setText("CAMPO NECESARIO");
             }
-            if ((cmbIdCurso.getValue().toString()).equals("")) {
+            if ((cmbIdCurso.getSelectionModel().getSelectedItem() == null)) {
                 validacion2=false;
                 lblAdvertenciaCursoId.setText("CAMPO NECESARIO");
             }
@@ -445,11 +726,11 @@ public class AsignacionesAlumnosController implements Initializable {
     @FXML
     private void seleccionarElemento() {
         if (existeElementoSeleccionado()) {
-            AsignacionesSelect = ((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem());
-            lblId.setText(((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getAlumnoId());
-            cmbCarneAlumno.setValue(((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getAlumnoId());
-            cmbIdCurso.setValue(((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getCursoId());
-            dpkFechaDeAsignacion.setValue((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getfechaAsignacion().toLocalTime());
+            AsignacionesSelect = (AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem();
+            lblId.setText(String.valueOf(((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getId()));
+            cmbCarneAlumno.getSelectionModel().select(buscarAlumnos(((AsignacionesAlumnos)tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getAlumnoId()));
+            cmbIdCurso.getSelectionModel().select(buscarCursos(((AsignacionesAlumnos)tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getCursoId()));
+            dpkFechaDeAsignacion.setValue(((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getFechaAsignacion().toLocalDate());
         }
-    }
+    }     
 }

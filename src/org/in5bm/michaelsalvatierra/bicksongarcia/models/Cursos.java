@@ -39,83 +39,117 @@ public class Cursos {
         this.salonId = new SimpleStringProperty();
     }
 
-    public IntegerProperty getId() {
+    public Integer getId() {
+        return id.get();
+    }
+
+    public String getNombreCurso() {
+        return nombreCurso.get();
+    }
+
+    public Integer getCiclo() {
+        return ciclo.get();
+    }
+
+    public Integer getCupoMaximo() {
+        return cupoMaximo.get();
+    }
+
+    public Integer getCupoMinimo() {
+        return cupoMinimo.get();
+    }
+
+    public String getCarreraTecnicaId() {
+        return carreraTecnicaId.get();
+    }
+
+    public Integer getHorarioId() {
+        return horarioId.get();
+    }
+
+    public Integer getInstructorId() {
+        return instructorId.get();
+    }
+
+    public String getSalonId() {
+        return salonId.get();
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
+    }
+
+    public void setNombreCurso(String nombreCurso) {
+        this.nombreCurso.set(nombreCurso);
+    }
+
+    public void setCiclo(int ciclo) {
+        this.ciclo.set(ciclo);
+    }
+
+    public void setCupoMaximo(int cupoMaximo) {
+        this.cupoMaximo.set(cupoMaximo);
+    }
+
+    public void setCupoMinimo(int cupoMinimo) {
+        this.cupoMinimo.set(cupoMinimo);
+    }
+
+    public void setCarreraTecnicaId(String carreraTecnicaId) {
+        this.carreraTecnicaId.set(carreraTecnicaId);
+    }
+
+    public void setHorarioId(int horarioId) {
+        this.horarioId.set(horarioId);
+    }
+
+    public void setInstructorId(int instructorId) {
+        this.instructorId.set(instructorId);
+    }
+
+    public void setSalonId(String salonId) {
+        this.salonId.set(salonId);
+    }
+    
+    public IntegerProperty Id(){
         return id;
     }
-
-    public StringProperty getNombreCurso() {
+    
+    public StringProperty Nombre(){
         return nombreCurso;
     }
-
-    public IntegerProperty getCiclo() {
+    
+    public IntegerProperty ciclo(){
         return ciclo;
     }
-
-    public IntegerProperty getCupoMaximo() {
+    
+    public IntegerProperty cupoMaximo(){
         return cupoMaximo;
     }
-
-    public IntegerProperty getCupoMinimo() {
+    
+    public IntegerProperty cupoMinimo(){
         return cupoMinimo;
     }
-
-    public StringProperty getCarreraTecnicaId() {
+    
+    public StringProperty carreraTecnicaId(){
         return carreraTecnicaId;
     }
-
-    public IntegerProperty getHorarioId() {
+    
+    public IntegerProperty horarioId(){
         return horarioId;
     }
-
-    public IntegerProperty getInstructorId() {
+    
+    public IntegerProperty instructorId(){
         return instructorId;
     }
-
-    public StringProperty getSalonId() {
-        return salonId;
+    public StringProperty salonId(){
+        return  salonId;
     }
-
-    public void setId(IntegerProperty id) {
-        this.id = id;
-    }
-
-    public void setNombreCurso(StringProperty nombreCurso) {
-        this.nombreCurso = nombreCurso;
-    }
-
-    public void setCiclo(IntegerProperty ciclo) {
-        this.ciclo = ciclo;
-    }
-
-    public void setCupoMaximo(IntegerProperty cupoMaximo) {
-        this.cupoMaximo = cupoMaximo;
-    }
-
-    public void setCupoMinimo(IntegerProperty cupoMinimo) {
-        this.cupoMinimo = cupoMinimo;
-    }
-
-    public void setCarreraTecnicaId(StringProperty carreraTecnicaId) {
-        this.carreraTecnicaId = carreraTecnicaId;
-    }
-
-    public void setHorarioId(IntegerProperty horarioId) {
-        this.horarioId = horarioId;
-    }
-
-    public void setInstructorId(IntegerProperty instructorId) {
-        this.instructorId = instructorId;
-    }
-
-    public void setSalonId(StringProperty salonId) {
-        this.salonId = salonId;
-    }
+     
     
-    
-   
     @Override
     public String toString() {
-        return "Cursos{" + "id=" + id + ", nombreCurso=" + nombreCurso + ", ciclo=" + ciclo + ", cupoMaximo=" + cupoMaximo + ", cupoMinimo=" + cupoMinimo + ", carreraTecnicaId=" + carreraTecnicaId + ", horarioId=" + horarioId + ", instructorId=" + instructorId + ", salonId=" + salonId + '}';
+        return id.get() +" | "+ nombreCurso.get() ;
     }
     
     

@@ -70,7 +70,7 @@ public class CarrerasTecnicas {
 
     @Override
     public String toString() {
-        return "CarrerasTecnicas{" + "codigoTecnico=" + codigoTecnico + ", carrera=" + carrera + ", grado=" + grado + ", seccion=" + seccion + ", jornada=" + jornada + '}';
+        return codigoTecnico + " | " + carrera + " " + grado + " " + seccion + " " + jornada;
     }
     
     

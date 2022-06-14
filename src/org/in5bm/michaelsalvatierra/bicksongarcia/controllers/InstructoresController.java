@@ -5,6 +5,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +36,8 @@ import org.in5bm.michaelsalvatierra.bicksongarcia.system.Principal;
  *
  * @date May 6, 2022
  * @time 8:10:24 PM
- * @author Bill Abel Bickson Garcia Rangel
- * Carne: 2018187
+ * @author Michael Steven Salvatierra Ramirez
+ * Carne: 2021150
  * Grado: 5to perito en Informatica 
  * Seccion y grupo: IN5BM Grupo 2 (Lunes)
  * Catedratico: Lic. Jorge Luis Perez Canto
@@ -149,7 +150,7 @@ public class InstructoresController implements Initializable{
     @FXML
     private ImageView imgEliminar;
     
-    private Instructores instructoresSelect;
+    private Instructores instructoresSelect = new Instructores();
     private Principal escenarioPrincipal;
 
     public Principal getEscenarioPrincipal() {
@@ -344,7 +345,7 @@ public class InstructoresController implements Initializable{
         instructor.setDireccion(txtDireccion.getText());
         instructor.setEmail(txtEmail.getText());
         instructor.setTelefono(txtTelefono.getText());
-        instructor.setFechaDeNacimiento(String.valueOf(dtpFechaDeNacimiento.getValue()));
+        instructor.setFechaDeNacimiento(java.sql.Date.valueOf(dtpFechaDeNacimiento.getValue()));
         
         PreparedStatement pstmt = null;
         try{
@@ -353,13 +354,13 @@ public class InstructoresController implements Initializable{
            
             pstmt.setString(1,instructor.getNombre1());
             pstmt.setString(2,instructor.getNombre2());
-            pstmt.setString(3,instructor.getNombre2());
-            pstmt.setString(4,instructor.getNombre3());
-            pstmt.setString(5,instructor.getApellido1());
-            pstmt.setString(6,instructor.getApellido2());
+            pstmt.setString(3,instructor.getNombre3());
+            pstmt.setString(4,instructor.getApellido1());
+            pstmt.setString(5,instructor.getApellido2());
+            pstmt.setString(6,instructor.getDireccion());
             pstmt.setString(7,instructor.getEmail());
             pstmt.setString(8,instructor.getTelefono());
-            pstmt.setString(9,instructor.getFechaDeNacimiento());
+            pstmt.setDate(9,instructor.getFechaDeNacimiento());
             
             System.out.println(pstmt.toString());
             pstmt.execute();
@@ -390,10 +391,9 @@ public class InstructoresController implements Initializable{
         instructor.setApellido1(txtApellido1.getText());
         instructor.setApellido2(txtApellido2.getText());
         instructor.setDireccion(txtDireccion.getText());
-        System.out.println(txtEmail.getText());
-        System.out.println(txtTelefono.getText());
         instructor.setEmail(txtEmail.getText());
         instructor.setTelefono(txtTelefono.getText());
+        instructor.setFechaDeNacimiento(java.sql.Date.valueOf(dtpFechaDeNacimiento.getValue()));
         
         PreparedStatement pstmt = null;
         try{
@@ -403,13 +403,13 @@ public class InstructoresController implements Initializable{
             pstmt.setInt(1,instructor.getId());
             pstmt.setString(2,instructor.getNombre1());
             pstmt.setString(3,instructor.getNombre2());
-            pstmt.setString(4,instructor.getNombre2());
-            pstmt.setString(5,instructor.getNombre3());
-            pstmt.setString(6,instructor.getApellido1());
-            pstmt.setString(7,instructor.getApellido2());
+            pstmt.setString(4,instructor.getNombre3());
+            pstmt.setString(5,instructor.getApellido1());
+            pstmt.setString(6,instructor.getApellido2());
+            pstmt.setString(7,instructor.getDireccion());
             pstmt.setString(8,instructor.getEmail());
             pstmt.setString(9,instructor.getTelefono());
-            pstmt.setString(10,instructor.getFechaDeNacimiento());
+            pstmt.setDate(10,instructor.getFechaDeNacimiento());
             
             System.out.println(pstmt.toString());
             pstmt.execute();
@@ -550,7 +550,7 @@ public class InstructoresController implements Initializable{
                 instructor.setDireccion(rs.getString(7));
                 instructor.setEmail(rs.getString(8));
                 instructor.setTelefono(rs.getString(9));
-                instructor.setFechaDeNacimiento(rs.getString(10));
+                instructor.setFechaDeNacimiento(rs.getDate(10));
                 lista.add(instructor);
                 System.out.println(instructor.toString());
                 listaCarrerasTecnicas = FXCollections.observableArrayList(lista);
@@ -585,7 +585,7 @@ public class InstructoresController implements Initializable{
         colNombre2.setCellValueFactory(new PropertyValueFactory<Instructores, String>("nombre2"));
         colNombre3.setCellValueFactory(new PropertyValueFactory<Instructores, String>("nombre3"));
         colApellido1.setCellValueFactory(new PropertyValueFactory<Instructores, String>("apellido1"));
-        colApellido1.setCellValueFactory(new PropertyValueFactory<Instructores, String>("apellido2"));
+        colApellido2.setCellValueFactory(new PropertyValueFactory<Instructores, String>("apellido2"));
         colDireccion.setCellValueFactory(new PropertyValueFactory<Instructores, String>("direccion"));
         colEmail.setCellValueFactory(new PropertyValueFactory<Instructores, String>("email"));
         colTelefono.setCellValueFactory(new PropertyValueFactory<Instructores, String>("telefono"));
@@ -653,8 +653,9 @@ public class InstructoresController implements Initializable{
         
     @FXML
     private void seleccionarElemento() {
-        if (existeElementoSeleccionado()) {           
+        if (existeElementoSeleccionado()) { 
             instructoresSelect = ((Instructores) tblInstructores.getSelectionModel().getSelectedItem());
+            System.out.println(instructoresSelect);
             lblId.setText(String.valueOf(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getId()));
             txtNombre1.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getNombre1());
             txtNombre2.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getNombre2());
@@ -663,9 +664,12 @@ public class InstructoresController implements Initializable{
             txtApellido2.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getApellido2());
             txtDireccion.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getDireccion());
             txtEmail.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getEmail());
-            txtTelefono.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getTelefono());  
-            //dtpFechaDeNacimiento.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getTelefono()); 
-            
+            txtTelefono.setText(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getTelefono());
+            if((((Instructores)tblInstructores.getSelectionModel().getSelectedItem()).getFechaDeNacimiento())!= null){
+                dtpFechaDeNacimiento.setValue(((Instructores) tblInstructores.getSelectionModel().getSelectedItem()).getFechaDeNacimiento().toLocalDate());   
+            }else{
+               dtpFechaDeNacimiento.getEditor().clear(); 
+            }
         }
     }
     

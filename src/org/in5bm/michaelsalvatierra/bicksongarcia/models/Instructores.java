@@ -1,5 +1,7 @@
 package org.in5bm.michaelsalvatierra.bicksongarcia.models;
 
+import java.sql.Date;
+
 /**
  *
  * @date Apr 11, 2022
@@ -21,7 +23,7 @@ public class Instructores {
     private String direccion;
     private String email;
     private String telefono;
-    private String fechaDeNacimiento;
+    private Date fechaDeNacimiento;
 
     public Instructores() {
     }
@@ -34,7 +36,7 @@ public class Instructores {
         this.telefono = telefono;
     }
 
-    public Instructores(int id, String nombre1, String nombre2, String nombre3, String apellido1, String apellido2, String direccion, String email, String telefono, String fechaDeNacimiento) {
+    public Instructores(int id, String nombre1, String nombre2, String nombre3, String apellido1, String apellido2, String direccion, String email, String telefono, Date fechaDeNacimiento) {
         this.id = id;
         this.nombre1 = nombre1;
         this.nombre2 = nombre2;
@@ -84,7 +86,7 @@ public class Instructores {
         return telefono;
     }
 
-    public String getFechaDeNacimiento() {
+    public Date getFechaDeNacimiento() {
         return fechaDeNacimiento;
     }
 
@@ -125,13 +127,13 @@ public class Instructores {
         this.telefono = telefono;
     }
 
-    public void setFechaDeNacimiento(String fechaDeNacimiento) {
+    public void setFechaDeNacimiento(Date fechaDeNacimiento) {
         this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
     @Override
     public String toString() {
-        return "Instructores{" + "id=" + id + ", nombre1=" + nombre1 + ", nombre2=" + nombre2 + ", nombre3=" + nombre3 + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", direccion=" + direccion + ", email=" + email + ", telefono=" + telefono + ", fechaDeNacimiento=" + fechaDeNacimiento + '}';
+        return id + " " + nombre1 + " " + apellido1 ;
     }
-    
+
 }

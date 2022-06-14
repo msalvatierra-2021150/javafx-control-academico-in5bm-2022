@@ -107,19 +107,19 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblAdvertenciaPrimerNombre1" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="4" />
-                  <Label fx:id="lblAdvertenciaPrimerNombre11" prefHeight="9.0" prefWidth="155.0" text="CAMPO REQUERIDO!" textFill="RED" GridPane.rowIndex="7" />
-                  <JFXTimePicker fx:id="tpHorarioInicio" GridPane.rowIndex="3" />
-                  <JFXTimePicker GridPane.rowIndex="6" />
+                  <Label fx:id="lblAdvertenciaHorarioInicio" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="4" />
+                  <Label fx:id="lblAdvertenciaHorarioFinal" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="7" />
+                  <JFXTimePicker fx:id="tpHorarioInicio" disable="true" GridPane.rowIndex="3" />
+                  <JFXTimePicker fx:id="tpHorarioFinalizacion" disable="true" GridPane.rowIndex="6" />
                   <Label prefHeight="18.0" prefWidth="124.0" text="Horario de inicio:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblId" prefHeight="27.0" prefWidth="162.0" styleClass="text-boxes" GridPane.rowIndex="1" />
+                  <Label fx:id="lblId" disable="true" prefHeight="27.0" prefWidth="162.0" styleClass="text-boxes" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <TableView fx:id="tblHorarios" layoutX="215.0" layoutY="166.0" prefHeight="381.0" prefWidth="534.0" styleClass="table">
+            <TableView fx:id="tblHorarios" layoutX="215.0" layoutY="166.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="381.0" prefWidth="534.0" styleClass="table">
               <columns>
                   <TableColumn fx:id="colId" prefWidth="36.800048828125" text="Id" />
                 <TableColumn fx:id="colHorarioInicio" prefWidth="99.99996948242188" text="Horario de inicio" />
@@ -143,27 +143,27 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <CheckBox fx:id="chkLunes" mnemonicParsing="false" text="Lunes">
+                  <CheckBox fx:id="chkLunes" disable="true" mnemonicParsing="false" text="Lunes">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="chkMartes" mnemonicParsing="false" text="Martes" GridPane.rowIndex="1">
+                  <CheckBox fx:id="chkMartes" disable="true" mnemonicParsing="false" text="Martes" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="chkMiercoles" mnemonicParsing="false" text="Miércoles" GridPane.rowIndex="2">
+                  <CheckBox fx:id="chkMiercoles" disable="true" mnemonicParsing="false" text="Miércoles" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="chkJueves" mnemonicParsing="false" text="Jueves" GridPane.rowIndex="3">
+                  <CheckBox fx:id="chkJueves" disable="true" mnemonicParsing="false" text="Jueves" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="chkViernes" mnemonicParsing="false" text="Viernes" GridPane.rowIndex="4">
+                  <CheckBox fx:id="chkViernes" disable="true" mnemonicParsing="false" text="Viernes" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
