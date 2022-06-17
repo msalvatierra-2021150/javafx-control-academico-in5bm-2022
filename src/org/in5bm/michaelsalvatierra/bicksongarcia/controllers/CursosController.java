@@ -405,6 +405,7 @@ public class CursosController implements Initializable {
         curso.setCupoMinimo(spnCupoMinimo.getValue());
         curso.setCarreraTecnicaId(cmbIdCarreraTecnica.getSelectionModel().getSelectedItem().getCodigoTecnico());
         curso.setHorarioId(cmbIdHorario.getSelectionModel().getSelectedItem().getId());
+        System.out.println("Horario "+curso.getHorarioId());
         curso.setInstructorId(cmbIdInstructor.getSelectionModel().getSelectedItem().getId());
         curso.setSalonId(cmbIdSalon.getSelectionModel().getSelectedItem().getCodigoSalon());
         PreparedStatement pstmt = null;

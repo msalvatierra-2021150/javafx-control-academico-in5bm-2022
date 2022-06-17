@@ -513,7 +513,7 @@ public class SalonesController implements Initializable {
         boolean validacion5 = true;
         boolean validacion6 = true;
         
-        if (spnCapacidad.getValue().equals("0")) {
+        if (spnCapacidad.getValue() == null) {
             validacion1 = false;
             lblAdvertenciaCapacidad.setText("CAMPO NECESARIO");
         }

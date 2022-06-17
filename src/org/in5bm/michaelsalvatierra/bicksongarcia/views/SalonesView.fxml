@@ -133,8 +133,8 @@
                   <TextField fx:id="txtCodigoDelSalon" disable="true" prefHeight="26.0" prefWidth="120.0" styleClass="text-boxes" GridPane.rowIndex="1" />
                   <Label fx:id="lblAdvertenciaCodigoDelSalon" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.rowIndex="2" />
                   <TextField fx:id="txtEdificio" disable="true" styleClass="text-boxes" GridPane.rowIndex="11" />
-                  <Spinner fx:id="spnCapacidad" editable="true" prefHeight="25.0" prefWidth="176.0" GridPane.rowIndex="8" />
-                  <Spinner fx:id="spnNivel" editable="true" prefHeight="25.0" prefWidth="286.0" GridPane.rowIndex="13" />
+                  <Spinner fx:id="spnCapacidad" disable="true" prefHeight="25.0" prefWidth="176.0" GridPane.rowIndex="8" />
+                  <Spinner fx:id="spnNivel" disable="true" prefHeight="25.0" prefWidth="286.0" GridPane.rowIndex="13" />
                </children>
             </GridPane>
             <TableView fx:id="tblSalones" layoutX="215.0" layoutY="166.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="381.0" prefWidth="534.0" styleClass="table">

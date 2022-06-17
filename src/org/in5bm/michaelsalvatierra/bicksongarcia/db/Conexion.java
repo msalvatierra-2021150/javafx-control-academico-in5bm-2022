@@ -24,7 +24,7 @@ public class Conexion {
     private final String PORT = "3306";
     private final String DB = "db_control_academico_in5bm";
     
-    private final String URL = "jdbc:mysql://"+IP_SERVER+":"+PORT+"/"+DB+"?serverTimezone=UTC"; 
+    private final String URL = "jdbc:mysql://"+IP_SERVER+":"+PORT+"/"+DB+"?allowPublicKeyRetrieval=true&serverTimezone=UTC&useSSL=false"; 
     private String driver = "com.mysql.cj.jdbc.Driver";
     
     private static Conexion instancia;
