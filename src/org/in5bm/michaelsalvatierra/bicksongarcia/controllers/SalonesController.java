@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -30,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.in5bm.michaelsalvatierra.bicksongarcia.db.Conexion;
 import org.in5bm.michaelsalvatierra.bicksongarcia.models.Salones;
+import org.in5bm.michaelsalvatierra.bicksongarcia.reports.GenerarReporte;
 import org.in5bm.michaelsalvatierra.bicksongarcia.system.Principal;
 
 /**
@@ -110,6 +113,9 @@ public class SalonesController implements Initializable {
 
     @FXML
     private TextField txtEdificio;
+    
+    @FXML
+    private Label lblTotalSalones;
 
     private Salones salonSelect;
 
@@ -137,6 +143,7 @@ public class SalonesController implements Initializable {
         valueFactoryNivel = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1);
         spnNivel.setValueFactory(valueFactoryNivel);
         cargarSalones();
+        conteoRegistros();
     }
 
     @FXML
@@ -168,6 +175,7 @@ public class SalonesController implements Initializable {
                         btnEliminar.setDisable(false);
                         btnReporte.setDisable(false);
                         validacionesfalse();
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -212,6 +220,7 @@ public class SalonesController implements Initializable {
                             cargarSalones();
                             limpiarCampos();
                             deshabilitarCampos();
+                            conteoRegistros();
                             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                             alerta.setTitle("Exito");
                             alerta.setHeaderText(null);
@@ -296,7 +305,15 @@ public class SalonesController implements Initializable {
                 break;
         }
     }
-
+    
+    private void conteoRegistros(){
+        int total= 0;
+        for (int i = 0; i < listaSalones.size(); i++) {
+            total = total + 1;
+        }
+        lblTotalSalones.setText(String.valueOf(total));
+    }
+    
     private boolean agregarSalones() {
         Salones salon = new Salones();
         salon.setCodigoSalon(txtCodigoDelSalon.getText());
@@ -451,13 +468,9 @@ public class SalonesController implements Initializable {
     }
 
     private void reporte() {
-        Alert reporte = new Alert(Alert.AlertType.INFORMATION);
-        reporte.setTitle("Control Academico KINAL");
-        Stage stageReporte = (Stage) reporte.getDialogPane().getScene().getWindow();
-        stageReporte.getIcons().add(new Image(PAQUETE_IMAGES + "ICONO.png"));
-        reporte.setHeaderText(null);
-        reporte.setContentText("Lo lamento, Esta función es solo para subscriptores premium :( .");
-        reporte.showAndWait();
+        Map <String, Object > parametros = new HashMap<>();
+        parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"salones-module.png");
+        GenerarReporte.getInstance().mostrarReporte("Salones.jasper", parametros, "Reporte de Salones");
     }
 
     private ObservableList getSalones() {

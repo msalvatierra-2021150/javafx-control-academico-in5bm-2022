@@ -107,3 +107,8 @@
     -fx-background-radius:15px;
     -fx-background-color: #E74C3C;
 }
+
+#pane-acerca-de{
+    /*-fx-background-color: #D0D0D0;*/
+    -fx-background-color: #B5B5B5;
+}

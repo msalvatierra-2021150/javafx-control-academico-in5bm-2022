@@ -32,7 +32,10 @@ import org.in5bm.michaelsalvatierra.bicksongarcia.db.Conexion;
 import org.in5bm.michaelsalvatierra.bicksongarcia.system.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.image.ImageView;
+import org.in5bm.michaelsalvatierra.bicksongarcia.reports.GenerarReporte;
 /**
  *
  * @date Apr 19, 2022
@@ -134,7 +137,10 @@ public class AlumnosController implements Initializable{
 
     @FXML
     private ImageView imgReporte;
-
+    
+    @FXML
+    private Label lblTotalAlumnos;
+    
     private Alumnos alumnoSelect;
     private final String PAQUETE_IMAGES = "org/in5bm/michaelsalvatierra/bicksongarcia/resources/images/";
     private Principal escenarioPrincipal;
@@ -180,7 +186,8 @@ public class AlumnosController implements Initializable{
                         imgModificar.setImage(new Image(PAQUETE_IMAGES + "button-modificar.png"));
                         btnEliminar.setDisable(false);
                         btnReporte.setDisable(false);
-
+                        
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -226,6 +233,7 @@ public class AlumnosController implements Initializable{
                             cargarAlumnos();
                             limpiarCampos();
                             deshabilitarCampos();
+                            conteoRegistros();
                             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                             alerta.setTitle("Exito");
                             alerta.setHeaderText(null);
@@ -313,6 +321,14 @@ public class AlumnosController implements Initializable{
                 operacion = Operacion.NINGUNO;
                 break;
         }
+    }
+    
+    private void conteoRegistros(){
+        int total= 0;
+        for (int i = 0; i < listaAlumnos.size(); i++) {
+            total = total + 1;
+        }
+        lblTotalAlumnos.setText(String.valueOf(total));
     }
     
     private boolean actualizarAlumno(){
@@ -410,13 +426,9 @@ public class AlumnosController implements Initializable{
     }
     
     private void reporte() {
-        Alert reporte = new Alert(Alert.AlertType.INFORMATION);
-        reporte.setTitle("Control Academico KINAL");
-        Stage stageReporte = (Stage) reporte.getDialogPane().getScene().getWindow();
-        stageReporte.getIcons().add(new Image(PAQUETE_IMAGES + "ICONO.png"));
-        reporte.setHeaderText(null);
-        reporte.setContentText("Lo lamento, Esta función es solo para subscriptores premium :( .");
-        reporte.showAndWait();
+        Map <String, Object > parametros = new HashMap<>();
+        parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"alumnos-module.png");
+        GenerarReporte.getInstance().mostrarReporte("Alumnos.jasper", parametros, "Reporte de Alumnos");
     }
     
     private void habilitarCampos(){
@@ -627,6 +639,7 @@ public class AlumnosController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarAlumnos();
+        conteoRegistros();
     }
 
 }

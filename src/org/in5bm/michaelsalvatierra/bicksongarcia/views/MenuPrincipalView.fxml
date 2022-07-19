@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -28,15 +31,6 @@
             <Image url="@../resources/images/MAIN%20LOGO.png" />
          </image>
       </ImageView>
-      <Button id="boton-ayuda" fx:id="btnAyuda" layoutX="868.0" layoutY="34.0" mnemonicParsing="false" onAction="#clickAyuda" prefHeight="38.0" prefWidth="111.0" stylesheets="@../resources/css/EstiloMenuPrincipal.css">
-         <graphic>
-            <ImageView fitHeight="47.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/images/Ayuda-removebg-preview.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
       <Button id="boton-alumnos" fx:id="btnAlumnos" layoutX="125.0" layoutY="197.0" mnemonicParsing="false" onAction="#clickAlumnos" prefHeight="100.0" prefWidth="186.0" stylesheets="@../resources/css/EstiloMenuPrincipal.css">
          <font>
             <Font name="Rage Italic" size="27.0" />
@@ -103,5 +97,43 @@
             </ImageView>
          </graphic>
       </Button>
+      <MenuBar id="menubar-ayuda" fx:id="mnbAyuda" layoutX="761.0" layoutY="39.0" prefHeight="43.0" prefWidth="254.0" stylesheets="@../resources/css/EstiloMenuPrincipal.css">
+        <menus>
+          <Menu mnemonicParsing="false">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#clickSalir" text="Salir" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickAcercaDe" text="Acerca de" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickCerrarSesion" text="Cerrar Sesion" />
+            </items>
+               <graphic>
+                  <ImageView fitHeight="47.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/Ayuda-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+          </Menu>
+            <Menu mnemonicParsing="false">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#clickReporteAlumnos" text="Alumnos" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickReporteInstructores" text="Instructores" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickReporteCarrerasTecnicas" text="Carreras Tecnicas" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickReporteHorarios" text="Horarios" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickReporteCursos" text="Cursos" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickReporteSalones" text="Salones" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickReporteAsignacionesAlumnos" text="Asignaciones de Alumno" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickReporteCursoPorID" text="Cursos por ID" />
+                  <MenuItem mnemonicParsing="false" onAction="#clickReporteAsignacionesPorID" text="Asignaciones de Alumnos por ID" />
+              </items>
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/REPORT-MENUITEM.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

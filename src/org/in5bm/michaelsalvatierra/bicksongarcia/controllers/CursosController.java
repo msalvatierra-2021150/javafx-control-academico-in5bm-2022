@@ -6,7 +6,9 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -36,6 +38,7 @@ import org.in5bm.michaelsalvatierra.bicksongarcia.models.Instructores;
 import org.in5bm.michaelsalvatierra.bicksongarcia.models.Salones;
 import org.in5bm.michaelsalvatierra.bicksongarcia.models.CarrerasTecnicas;
 import org.in5bm.michaelsalvatierra.bicksongarcia.models.Horarios;
+import org.in5bm.michaelsalvatierra.bicksongarcia.reports.GenerarReporte;
 
 /**
  * @date Apr 5, 2022
@@ -124,6 +127,8 @@ public class CursosController implements Initializable {
     private Label lblAdvertenciaIdInstructor;
     @FXML
     private Label lblAdvertenciaIdSalon;
+    @FXML
+    private Label lblTotalCursos;
     
     private Cursos cursosSelect;
     private ObservableList<Cursos> listaCursos;
@@ -147,6 +152,7 @@ public class CursosController implements Initializable {
         spnCupoMinimo.setValueFactory(valueFactoryCupoMinimo);
         
         cargarCursos();
+        conteoRegistros();
     }    
     
     private Principal escenarioPrincipal;
@@ -191,6 +197,7 @@ public class CursosController implements Initializable {
                         btnEliminar.setDisable(false);
                         btnReporte.setDisable(false);
                         validacionesfalse();
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -235,6 +242,7 @@ public class CursosController implements Initializable {
                             cargarCursos();
                             limpiarCampos();
                             deshabilitarCampos();
+                            conteoRegistros();
                             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                             alerta.setTitle("Exito");
                             alerta.setHeaderText(null);
@@ -318,6 +326,14 @@ public class CursosController implements Initializable {
                 operacion = Operacion.NINGUNO;
                 break;
         }
+    }
+    
+    private void conteoRegistros(){
+        int total= 0;
+        for (int i = 0; i < listaCursos.size(); i++) {
+            total = total + 1;
+        }
+        lblTotalCursos.setText(String.valueOf(total));
     }
     
     private boolean agregarCursos() {
@@ -492,14 +508,17 @@ public class CursosController implements Initializable {
         cmbIdSalon.valueProperty().set(null);
     }
     
-        private void reporte() {
-        Alert reporte = new Alert(Alert.AlertType.INFORMATION);
-        reporte.setTitle("Control Academico KINAL");
-        Stage stageReporte = (Stage) reporte.getDialogPane().getScene().getWindow();
-        stageReporte.getIcons().add(new Image(PAQUETE_IMAGES + "ICONO.png"));
-        reporte.setHeaderText(null);
-        reporte.setContentText("Lo lamento, Esta función es solo para subscriptores premium :( .");
-        reporte.showAndWait();
+    private void reporte() {
+        if(cursosSelect == null){
+            Map <String, Object > parametros = new HashMap<>();
+            parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"cursos-module-removebg-preview.png");
+            GenerarReporte.getInstance().mostrarReporte("Cursos.jasper", parametros, "Reporte de Cursos");
+        } else {
+            Map <String, Object > parametros = new HashMap<>();
+            parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"cursos-module-removebg-preview.png");
+            parametros.put("idCursos", cursosSelect.getId());
+            GenerarReporte.getInstance().mostrarReporte("CursosByID.jasper", parametros, "Reporte de Cursos");
+        }
     }
     
     private ObservableList getCursos() {
@@ -1065,9 +1084,14 @@ public class CursosController implements Initializable {
             cmbIdHorario.getSelectionModel().select(buscarHorarios(((Cursos)tblCurso.getSelectionModel().getSelectedItem()).getHorarioId()));
             cmbIdInstructor.getSelectionModel().select(buscarInstructor(((Cursos)tblCurso.getSelectionModel().getSelectedItem()).getInstructorId()));
             cmbIdSalon.getSelectionModel().select(buscarSalon(((Cursos)tblCurso.getSelectionModel().getSelectedItem()).getSalonId()));
+            System.out.println("Elemento Seleccionado "+cursosSelect.toString());
         }
-        
+    }
     
+    @FXML
+    private void limpiarSeleccionado(){
+        cursosSelect = null;
+        System.out.println("Seleccion limpia "+cursosSelect);
     }
 }
     

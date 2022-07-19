@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Plantilla" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3caa7c8c-5357-434b-9497-1098e1b89257">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Control Academico IN5BM"/>
+	<parameter name="IMAGE_LOGO" class="java.lang.String"/>
+	<parameter name="IMAGE_FOOTER" class="java.lang.String"/>
+	<parameter name="LOGO_ASIGNACION" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[CALL sp_alumnos_report()]]>
+	</queryString>
+	<field name="carne" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="carne"/>
+		<property name="com.jaspersoft.studio.field.label" value="carne"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alumnos"/>
+	</field>
+	<field name="Nombre_completo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Nombre_completo"/>
+		<property name="com.jaspersoft.studio.field.label" value="Nombre_completo"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="10" y="-12" width="149" height="95" uuid="11c21ed5-573a-4ee9-b960-f0d2b48d89d4"/>
+				<imageExpression><![CDATA[$P{IMAGE_LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="180" y="-10" width="259" height="19" uuid="9421e0cb-9762-4c02-977b-865bd5457674"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold" size="16"/>
+				</textElement>
+				<text><![CDATA[Control académico KINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="11" width="240" height="20" uuid="b6c836c8-9db7-4eb8-827f-ed9d76a7c0b6"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[6 avenida 13-54 zona 7, Colonia Landívar, 01007 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="229" y="44" width="100" height="20" uuid="13da82c8-86b2-406d-ac79-741cdc8585c2"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Teléfono: 2216-0000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="28" width="196" height="22" uuid="626e25d8-06a6-405f-a25e-d1d502554893"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Ciudad de Guatemala, Guatemala, C.A.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="470" y="-16" width="102" height="80" uuid="66a4e87b-aad8-4ad8-8c7c-dee73b52a99e"/>
+				<imageExpression><![CDATA[$P{LOGO_ASIGNACION}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="243" y="64" width="80" height="20" uuid="d7c5fbf7-4511-4cf9-a8ff-0ae559079367"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[NIT: 136548-7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="-16" width="61" height="20" uuid="90af1f8f-fd0e-4305-bd56-77fb34892f50"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[ALUMNOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="0" width="231" height="18" uuid="1dc87038-a152-4681-b093-490865a958b8"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold" size="14"/>
+				</textElement>
+				<text><![CDATA[Reporde de entidad Alumnos: ]]></text>
+			</staticText>
+			<textField pattern="MMMM d, yyyy">
+				<reportElement x="452" y="-1" width="120" height="24" uuid="e36039f4-329e-4bce-bbbb-3bad9faaa53d"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<line>
+				<reportElement x="-7" y="39" width="587" height="1" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="4f08de51-5bf6-460e-89df-0421cc9c0fc1">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="6.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="34" y="20" width="66" height="21" uuid="4a9d9874-b0e9-4cbd-99d9-3fdc812ce4c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00014c5e-5363-4eb0-974d-eedaca2a130b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Carné]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="20" width="100" height="26" uuid="5ff17dcd-68a6-4d30-bd2e-0ca008aa5b84">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="947994ec-a2fa-42cf-9fe9-0c058b4eca04"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Nombre completo:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="27" y="12" width="80" height="22" uuid="9976800a-fb3c-4dbe-8bcc-264a3b9ba8bd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00014c5e-5363-4eb0-974d-eedaca2a130b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{carne}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="13" width="379" height="20" uuid="f2473e3e-c9ef-4b85-85d4-196739e33294">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="947994ec-a2fa-42cf-9fe9-0c058b4eca04"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre_completo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="34" width="571" height="1" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="e45021f1-a398-46a2-947b-9d034b997ff0">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="6" width="1" height="28" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="5dabde14-6a37-4c68-82b5-2146fa3da71a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="571" y="5" width="1" height="29" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="598ff6bb-984c-478b-baf5-3ad44d642145">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="110" y="6" width="1" height="28" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="d5bac449-da23-47ca-a65a-4189c31932db">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="5" width="571" height="1" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="467a767d-fe89-4bde-9a8a-8d5320152d8d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement x="-7" y="10" width="585" height="1" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="8d61fd60-564b-46bd-85e8-9827c7ebe103">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="6.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="99" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="200" y="40" width="159" height="54" uuid="0500b952-6945-4454-ba93-a4bbd83ecd32"/>
+				<imageExpression><![CDATA[$P{IMAGE_FOOTER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="189" y="15" width="177" height="15" uuid="010a1870-9b72-4a0e-898d-9874214faa38"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[msalvatierra-2021150@kinal.edu.gt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="30" width="34" height="19" uuid="e1245ec5-ca39-4566-a6bc-1d43ec265552"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[IN5BM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="0" width="160" height="20" uuid="d7ff1541-7276-412e-97a2-f3262c434eb2"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Michael Steven Salvatierra Ramirez ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

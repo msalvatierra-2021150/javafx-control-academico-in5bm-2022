@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Plantilla" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3caa7c8c-5357-434b-9497-1098e1b89257">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Control Academico IN5BM"/>
+	<parameter name="IMAGE_LOGO" class="java.lang.String"/>
+	<parameter name="IMAGE_FOOTER" class="java.lang.String"/>
+	<parameter name="LOGO_ASIGNACION" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[CALL sp_horarios_report()]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="horarios"/>
+	</field>
+	<field name="horario_inicio" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="horario_inicio"/>
+		<property name="com.jaspersoft.studio.field.label" value="horario_inicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="horarios"/>
+	</field>
+	<field name="horario_final" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="horario_final"/>
+		<property name="com.jaspersoft.studio.field.label" value="horario_final"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="horarios"/>
+	</field>
+	<field name="lunes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lunes"/>
+		<property name="com.jaspersoft.studio.field.label" value="lunes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="horarios"/>
+	</field>
+	<field name="martes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="martes"/>
+		<property name="com.jaspersoft.studio.field.label" value="martes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="horarios"/>
+	</field>
+	<field name="miercoles" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="miercoles"/>
+		<property name="com.jaspersoft.studio.field.label" value="miercoles"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="horarios"/>
+	</field>
+	<field name="jueves" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="jueves"/>
+		<property name="com.jaspersoft.studio.field.label" value="jueves"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="horarios"/>
+	</field>
+	<field name="viernes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="viernes"/>
+		<property name="com.jaspersoft.studio.field.label" value="viernes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="horarios"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="10" y="-10" width="149" height="95" uuid="11c21ed5-573a-4ee9-b960-f0d2b48d89d4"/>
+				<imageExpression><![CDATA[$P{IMAGE_LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="180" y="-10" width="259" height="19" uuid="9421e0cb-9762-4c02-977b-865bd5457674"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold" size="16"/>
+				</textElement>
+				<text><![CDATA[Control académico KINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="11" width="240" height="20" uuid="b6c836c8-9db7-4eb8-827f-ed9d76a7c0b6"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[6 avenida 13-54 zona 7, Colonia Landívar, 01007 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="50" width="100" height="20" uuid="13da82c8-86b2-406d-ac79-741cdc8585c2"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Teléfono: 2216-0000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="70" width="80" height="20" uuid="d7c5fbf7-4511-4cf9-a8ff-0ae559079367"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[NIT: 136548-7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="28" width="196" height="22" uuid="626e25d8-06a6-405f-a25e-d1d502554893"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Ciudad de Guatemala, Guatemala, C.A.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="476" y="-16" width="94" height="86" uuid="02e85059-f814-4cfd-917c-1723a3ee2171"/>
+				<imageExpression><![CDATA[$P{LOGO_ASIGNACION}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="495" y="-11" width="61" height="20" uuid="f5aa5ae5-4dcc-48b6-8a6b-eaf83621d184"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[HORARIOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="181" y="2" width="210" height="18" uuid="1dc87038-a152-4681-b093-490865a958b8"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold" size="14"/>
+				</textElement>
+				<text><![CDATA[Reporde de entidad Horario: ]]></text>
+			</staticText>
+			<textField pattern="MMMM d, yyyy">
+				<reportElement x="450" y="0" width="120" height="24" uuid="e36039f4-329e-4bce-bbbb-3bad9faaa53d"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<line>
+				<reportElement x="-7" y="39" width="587" height="1" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="4f08de51-5bf6-460e-89df-0421cc9c0fc1">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="6.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="20" width="30" height="30" uuid="7076379f-283f-480f-8855-f0d57ff0981d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bb64ec48-7b96-46d2-8633-659d018c75c1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="20" width="100" height="30" uuid="31f15273-e712-4836-abab-7627984c29d9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="914d328f-bc60-49fb-8a6b-af3723228f4f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Horario de inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="20" width="100" height="30" uuid="ed61e3ff-f865-476c-8bf6-ae42acd29e1c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="626e1623-fed3-40ae-815a-c9619215d549"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Horario final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="20" width="49" height="30" uuid="c891a291-68dd-4ed9-9e03-d2a7227e171d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bfbe19ee-08ac-4721-ae86-0301f23871b9"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Lunes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="20" width="49" height="30" uuid="629888c7-55e4-4770-8b38-850fed0f3f1d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="056818d3-7bb9-4379-a6a3-6eb5d57cf0f3"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Martes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="20" width="64" height="30" uuid="acbdd0bd-12d2-4406-aa8c-8837c3ed0b21">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1f4152b-7920-409a-9c00-9e19341d7114"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Miércoles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="20" width="38" height="30" uuid="2f6ed0fd-c2b1-47e9-80d6-329b7207a33d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db7204a8-95dc-4f39-b90f-da5f501d59b2"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Jueves]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="20" width="40" height="30" uuid="30153c02-b4e4-47ee-8725-3257790eb0d2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e73cbe6f-e20b-4d1e-9f67-a6ae5262cf98"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Viernes]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="12" width="30" height="18" uuid="106b28cf-bcbe-497e-9982-91ae650c2155">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bb64ec48-7b96-46d2-8633-659d018c75c1"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="12" width="91" height="18" uuid="791203cd-2c92-4fc6-8cb1-1acfe6089555">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="914d328f-bc60-49fb-8a6b-af3723228f4f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horario_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="13" width="90" height="16" uuid="ca1fe567-51fb-4aa4-bda1-acb4b8595a9c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="626e1623-fed3-40ae-815a-c9619215d549"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horario_final}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="13" width="49" height="16" uuid="cb84502e-1a96-49af-9f03-9bad0d34cb8c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bfbe19ee-08ac-4721-ae86-0301f23871b9"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lunes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="13" width="49" height="16" uuid="d5704674-87ea-4d9a-8a45-e53a477418c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="056818d3-7bb9-4379-a6a3-6eb5d57cf0f3"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{martes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="13" width="60" height="16" uuid="25ea5e70-e462-44e4-93dd-bc7f7558aee9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1f4152b-7920-409a-9c00-9e19341d7114"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{miercoles}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="13" width="55" height="16" uuid="9948e9e3-0d67-4cdd-9f14-7f36d6c118b0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db7204a8-95dc-4f39-b90f-da5f501d59b2"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jueves}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="13" width="70" height="16" uuid="b7a315e0-fa84-4740-a4b1-1fb1518ace90">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e73cbe6f-e20b-4d1e-9f67-a6ae5262cf98"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{viernes}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="3d267a0d-7df5-4ad1-a893-913da806b6b1">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="40" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="347bb5fc-d475-4943-887a-dc3960b20481">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="136" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="a968ae0e-fe7b-4b5c-a07f-6bc40f02aeca">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="235" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="006cd368-94d6-405c-ab15-d06214694efc">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="294" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="93781600-6993-4985-acfa-196477aa3b46">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="349" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="525dadf2-600f-4516-a5ac-4e96e9b49b73">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="422" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="46d1e530-e228-42ad-b7c0-36f4cb0a6a17">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="485" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="bc368f26-0832-487a-9a27-dcffab076234">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="562" y="8" width="1" height="23" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="c5276d86-4284-44ea-8ab6-5d935704dd75">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="8" width="563" height="1" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="d771f4a2-a8d5-49db-9a92-040fcfcdb619">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="30" width="563" height="1" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="c1e0e541-6244-4ed7-8b4b-f16234aa2e7d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#050505"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement x="-7" y="10" width="585" height="1" forecolor="#FAA51E" backcolor="#E5E5E5" uuid="8d61fd60-564b-46bd-85e8-9827c7ebe103">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="6.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="94" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="198" y="40" width="159" height="54" uuid="0500b952-6945-4454-ba93-a4bbd83ecd32"/>
+				<imageExpression><![CDATA[$P{IMAGE_FOOTER}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="189" y="15" width="177" height="15" uuid="010a1870-9b72-4a0e-898d-9874214faa38"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[msalvatierra-2021150@kinal.edu.gt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="30" width="34" height="19" uuid="e1245ec5-ca39-4566-a6bc-1d43ec265552"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[IN5BM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="0" width="160" height="20" uuid="d7ff1541-7276-412e-97a2-f3262c434eb2"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[Michael Steven Salvatierra Ramirez ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

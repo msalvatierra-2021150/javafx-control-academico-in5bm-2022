@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -29,6 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.in5bm.michaelsalvatierra.bicksongarcia.db.Conexion;
 import org.in5bm.michaelsalvatierra.bicksongarcia.models.CarrerasTecnicas;
+import org.in5bm.michaelsalvatierra.bicksongarcia.reports.GenerarReporte;
 import org.in5bm.michaelsalvatierra.bicksongarcia.system.Principal;
 
 /**
@@ -121,6 +124,9 @@ public class CarrerasTecnicasController implements Initializable {
     @FXML
     private ImageView imgEliminar;
     
+    @FXML
+    private Label lblTotalCarrerasTecnicas;
+    
     private Principal escenarioPrincipal;
     private int clickBtnModificar;
     private CarrerasTecnicas carreraTecnicaSelect;
@@ -139,6 +145,7 @@ public class CarrerasTecnicasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarCarrerasTecnicas();
+        conteoRegistros();
     }
 
     @FXML
@@ -169,6 +176,7 @@ public class CarrerasTecnicasController implements Initializable {
                         btnEliminar.setDisable(false);
                         btnReporte.setDisable(false);
                         validacionesfalse();
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -215,6 +223,7 @@ public class CarrerasTecnicasController implements Initializable {
                         cargarCarrerasTecnicas();
                         limpiarCampos();
                         deshabilitarCampos();
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -305,6 +314,14 @@ public class CarrerasTecnicasController implements Initializable {
         }
     }
     
+    private void conteoRegistros(){
+        int total= 0;
+        for (int i = 0; i < listaCarrerasTecnicas.size(); i++) {
+            total = total + 1;
+        }
+        lblTotalCarrerasTecnicas.setText(String.valueOf(total));
+    }
+    
     private boolean agregarCarrerasTecnicas() {
         CarrerasTecnicas carreraTecnica = new CarrerasTecnicas();
         carreraTecnica.setCarrera(txtCarrera.getText());
@@ -344,7 +361,7 @@ public class CarrerasTecnicasController implements Initializable {
         return false;
     }
     
-        private boolean actualizarCarrerasTecnicas(){
+    private boolean actualizarCarrerasTecnicas(){
         CarrerasTecnicas carreraTecnica = new CarrerasTecnicas();
         carreraTecnica.setCarrera(txtCarrera.getText());
         carreraTecnica.setGrado(txtGrado.getText());
@@ -460,13 +477,9 @@ public class CarrerasTecnicasController implements Initializable {
     }
     
     private void reporte() {
-        Alert reporte = new Alert(Alert.AlertType.INFORMATION);
-        reporte.setTitle("Control Academico KINAL");
-        Stage stageReporte = (Stage) reporte.getDialogPane().getScene().getWindow();
-        stageReporte.getIcons().add(new Image(PAQUETE_IMAGES + "ICONO.png"));
-        reporte.setHeaderText(null);
-        reporte.setContentText("Lo lamento, Esta función es solo para subscriptores premium :( .");
-        reporte.showAndWait();
+        Map <String, Object > parametros = new HashMap<>();
+        parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"carreras tecnicas-module.png");
+        GenerarReporte.getInstance().mostrarReporte("CarrerasTecnicas.jasper", parametros, "Reporte de Carreras tecnicas");
     }
     
     private ObservableList getCarrerasTecnicas(){

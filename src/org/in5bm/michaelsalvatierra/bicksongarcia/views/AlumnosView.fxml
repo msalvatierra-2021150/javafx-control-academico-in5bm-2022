@@ -172,6 +172,16 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Label layoutX="389.0" layoutY="133.0" prefHeight="18.0" prefWidth="124.0" text="Total de alumnos en: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTotalAlumnos" layoutX="520.0" layoutY="133.0" prefHeight="18.0" prefWidth="124.0" text="0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

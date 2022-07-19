@@ -78,11 +78,12 @@
 }
 
 
-#boton-ayuda{
+#menubar-ayuda{
     -fx-background-color: #323253;
     -fx-background-radius: 15px;
 }
 
-#boton-ayuda:hover{
+#menubar-ayuda:hover{
     -fx-background-color: #135E96;
+    -fx-background-radius: 15px;
 }

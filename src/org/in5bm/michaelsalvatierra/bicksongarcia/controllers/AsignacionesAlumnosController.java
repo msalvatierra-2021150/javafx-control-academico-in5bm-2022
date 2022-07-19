@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -37,6 +39,7 @@ import org.in5bm.michaelsalvatierra.bicksongarcia.models.AsignacionesAlumnos;
 import org.in5bm.michaelsalvatierra.bicksongarcia.system.Principal;
 import org.in5bm.michaelsalvatierra.bicksongarcia.models.Alumnos;
 import org.in5bm.michaelsalvatierra.bicksongarcia.models.Cursos;
+import org.in5bm.michaelsalvatierra.bicksongarcia.reports.GenerarReporte;
 /**
  *
  * @date Apr 19, 2022
@@ -103,8 +106,12 @@ public class AsignacionesAlumnosController implements Initializable {
     private ImageView imgModificar;
     @FXML
     private ImageView imgEliminar;
+    @FXML
+    private Label lblTotalAsignaciones;
+    @FXML
+    private Label lblAdvertenciaFechaAsignacion;
     
-    private AsignacionesAlumnos AsignacionesSelect = new AsignacionesAlumnos();
+    private AsignacionesAlumnos AsignacionesSelect;
     private ObservableList<AsignacionesAlumnos> listaAsignacionesAlumnos;
     
     private ObservableList<Alumnos> listaAlumnos;
@@ -122,6 +129,7 @@ public class AsignacionesAlumnosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarAsignacionesAlumnos();
+        conteoRegistros();
     }    
     
      private final String PAQUETE_IMAGES = "org/in5bm/michaelsalvatierra/bicksongarcia/resources/images/";
@@ -156,6 +164,7 @@ public class AsignacionesAlumnosController implements Initializable {
                         btnEliminar.setDisable(false);
                         btnReporte.setDisable(false);
                         validacionesfalse();
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -200,6 +209,7 @@ public class AsignacionesAlumnosController implements Initializable {
                             cargarAsignacionesAlumnos();
                             limpiarCampos();
                             deshabilitarCampos();
+                            conteoRegistros();
                             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                             alerta.setTitle("Exito");
                             alerta.setHeaderText(null);
@@ -284,6 +294,14 @@ public class AsignacionesAlumnosController implements Initializable {
         }
     }
     
+    private void conteoRegistros(){
+        int total= 0;
+        for (int i = 0; i < listaAsignacionesAlumnos.size(); i++) {
+            total = total + 1;
+        }
+        lblTotalAsignaciones.setText(String.valueOf(total));
+    }
+    
     @FXML
     private void clickRegresar(ActionEvent event) {
         System.out.println("Atras");
@@ -317,15 +335,18 @@ public class AsignacionesAlumnosController implements Initializable {
         dpkFechaDeAsignacion.getEditor().clear();
     }
     
-        private void reporte() {
-        Alert reporte = new Alert(Alert.AlertType.INFORMATION);
-        reporte.setTitle("Control Academico KINAL");
-        Stage stageReporte = (Stage) reporte.getDialogPane().getScene().getWindow();
-        stageReporte.getIcons().add(new Image(PAQUETE_IMAGES + "ICONO.png"));
-        reporte.setHeaderText(null);
-        reporte.setContentText("Lo lamento, Esta función es solo para subscriptores premium :( .");
-        reporte.showAndWait();
-    }
+    private void reporte() {
+        if(AsignacionesSelect == null){
+            Map <String, Object > parametros = new HashMap<>();
+            parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"asignacion alumnos-module.png");
+            GenerarReporte.getInstance().mostrarReporte("AsignacionAlumnos.jasper", parametros, "Reporte de Asigancion de lumnos"); 
+        }else{
+             Map <String, Object > parametros = new HashMap<>();
+            parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"asignacion alumnos-module.png");
+            parametros.put("idAsignacion", AsignacionesSelect.getId() );
+            GenerarReporte.getInstance().mostrarReporte("AsignacionAlumnosByID.jasper", parametros, "Reporte de Asigancion de lumnos"); 
+        }
+     }
     
         
     private boolean actualizarAsignaciones() {
@@ -680,6 +701,10 @@ public class AsignacionesAlumnosController implements Initializable {
                 validacion2=false;
                 lblAdvertenciaCursoId.setText("CAMPO NECESARIO");
             }
+            if(dpkFechaDeAsignacion.getValue() ==null){
+                validacion3=false;
+                lblAdvertenciaFechaAsignacion.setText("CAMPO NECESARIO");
+            }
             
 //            String nombre1 = txtNombre1.getText().trim();
 //            validacion1 = nombre1.matches("^[A-Za-z]\\w{4,29}$");
@@ -708,7 +733,7 @@ public class AsignacionesAlumnosController implements Initializable {
 //            if (validacion5 != true) {
 //            }
 
-            if (validacion1 & validacion2) {
+            if (validacion1 & validacion2 & validacion3) {
                 return true;
             }
             return false;
@@ -731,6 +756,13 @@ public class AsignacionesAlumnosController implements Initializable {
             cmbCarneAlumno.getSelectionModel().select(buscarAlumnos(((AsignacionesAlumnos)tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getAlumnoId()));
             cmbIdCurso.getSelectionModel().select(buscarCursos(((AsignacionesAlumnos)tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getCursoId()));
             dpkFechaDeAsignacion.setValue(((AsignacionesAlumnos) tblAsignacionDeAlumnos.getSelectionModel().getSelectedItem()).getFechaAsignacion().toLocalDate());
+            System.out.println("Seleccionado "+AsignacionesSelect.toString());
         }
-    }     
+    } 
+
+    @FXML
+    private void limpiarSeleccionado(){
+        AsignacionesSelect = null;
+        System.out.println("Seleccion limpia "+AsignacionesSelect);
+    }
 }

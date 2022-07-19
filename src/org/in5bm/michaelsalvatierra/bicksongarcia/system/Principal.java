@@ -16,6 +16,7 @@ import org.in5bm.michaelsalvatierra.bicksongarcia.controllers.CarrerasTecnicasCo
 import org.in5bm.michaelsalvatierra.bicksongarcia.controllers.CursosController;
 import org.in5bm.michaelsalvatierra.bicksongarcia.controllers.HorariosController;
 import org.in5bm.michaelsalvatierra.bicksongarcia.controllers.InstructoresController;
+import org.in5bm.michaelsalvatierra.bicksongarcia.controllers.LoginController;
 import org.in5bm.michaelsalvatierra.bicksongarcia.controllers.MenuPrincipalController;
 import org.in5bm.michaelsalvatierra.bicksongarcia.controllers.SalonesController;
 /**
@@ -45,24 +46,9 @@ public class Principal extends Application{
         this.escenarioPrincipal.getIcons().add(icon);
         this.escenarioPrincipal.setResizable(false);
         this.escenarioPrincipal.centerOnScreen();
-        mostrarEscenaPrincipal();
+        mostrarLogin();
     }
-    
-//    public Initializable cambiarEscena(String vistaFXML, int alto, int ancho) throws IOException {
-//        Initializable resultado = null;
-//        FXMLLoader cargadorFXML = new FXMLLoader();
-//        cargadorFXML.setBuilderFactory(new JavaFXBuilderFactory());
-//        cargadorFXML.setLocation(Principal.class.getResource(PAQUETE_VIEWS + vistaFXML));  
-//        InputStream archivo = Principal.class.getResourceAsStream(PAQUETE_VIEWS + vistaFXML);
-//        AnchorPane root = cargadorFXML.load(archivo);
-//        Scene nuevaEscena = new Scene(root, ancho, alto);
-//        this.escenarioPrincipal.setScene(nuevaEscena);
-//        this.escenarioPrincipal.sizeToScene();
-//        escenarioPrincipal.show();    
-//        resultado = cargadorFXML.getController();
-//        return resultado;
-//    }
-    
+
     public Initializable cambiarEscena(String vistaFXML, int alto, int ancho) throws IOException {
         System.out.println("Cambiando de escena: "+PAQUETE_VIEWS + vistaFXML);
         FXMLLoader cargadorFXML = new FXMLLoader(getClass().getResource(PAQUETE_VIEWS + vistaFXML));
@@ -73,7 +59,18 @@ public class Principal extends Application{
         return (Initializable) cargadorFXML.getController();
     }
     
-    public void mostrarEscenaPrincipal( ){
+    public void mostrarLogin( ){
+        try {
+            LoginController loginController = (LoginController)cambiarEscena("Login.fxml",602, 1024);
+            loginController.setEscenarioPrincipal(this);
+        } catch (Exception ex) {
+            System.err.println("Ocurrio un error al mostar la vista del menu Principal "+ex.getMessage());
+            System.err.println("Track del error ");
+            ex.printStackTrace();
+        }
+    }
+    
+    public void mostrarEscenaPrincipal(){
         try {
             MenuPrincipalController menuController = (MenuPrincipalController)cambiarEscena("MenuPrincipalView.fxml",602, 1024);
             menuController.setEscenarioPrincipal(this);
@@ -84,7 +81,20 @@ public class Principal extends Application{
         }
     }
     
-        public void mostrarEscenaAlumnos(){
+    public String mostrarEscenaPrincipal(String tipo){
+        System.out.println("TIPO LLEGA "+tipo);
+        try {
+            MenuPrincipalController menuController = (MenuPrincipalController)cambiarEscena("MenuPrincipalView.fxml",602, 1024);
+            menuController.setEscenarioPrincipal(this);
+        } catch (Exception ex) {
+            System.err.println("Ocurrio un error al mostar la vista del menu Principal "+ex.getMessage());
+            System.err.println("Track del error ");
+            ex.printStackTrace();
+        }
+        return tipo;
+    }
+    
+    public void mostrarEscenaAlumnos(){
         try {
          AlumnosController alumnosController = (AlumnosController)cambiarEscena("AlumnosView.fxml",602, 1024);
          alumnosController.setEscenarioPrincipal(this);

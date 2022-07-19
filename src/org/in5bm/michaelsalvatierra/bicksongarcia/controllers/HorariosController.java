@@ -32,6 +32,9 @@ import org.in5bm.michaelsalvatierra.bicksongarcia.models.Horarios;
 import org.in5bm.michaelsalvatierra.bicksongarcia.system.Principal;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
+import org.in5bm.michaelsalvatierra.bicksongarcia.reports.GenerarReporte;
 
 /**
  * @date May 9, 2022
@@ -105,12 +108,16 @@ public class HorariosController implements Initializable {
     @FXML
     private Label lblId;
     private Horarios horariosSelect = new Horarios();
+    
+    @FXML 
+    private Label lblTotalHorarios;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarHorarios();
+        conteoRegistros();
         tpHorarioFinalizacion.set24HourView(false);
         tpHorarioInicio.set24HourView(false);
     }    
@@ -158,6 +165,7 @@ public class HorariosController implements Initializable {
                         btnEliminar.setDisable(false);
                         btnReporte.setDisable(false);
                         validacionesfalse();
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -202,6 +210,7 @@ public class HorariosController implements Initializable {
                             cargarHorarios();
                             limpiarCampos();
                             deshabilitarCampos();
+                            conteoRegistros();
                             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                             alerta.setTitle("Exito");
                             alerta.setHeaderText(null);
@@ -285,6 +294,14 @@ public class HorariosController implements Initializable {
                 operacion = Operacion.NINGUNO;
                 break;
         }
+    }
+    
+    private void conteoRegistros(){
+        int total= 0;
+        for (int i = 0; i < listaCursos.size(); i++) {
+            total = total + 1;
+        }
+        lblTotalHorarios.setText(String.valueOf(total));
     }
     
     private boolean agregarHorarios() {
@@ -485,13 +502,9 @@ public class HorariosController implements Initializable {
     }
     
     private void reporte() {
-        Alert reporte = new Alert(Alert.AlertType.INFORMATION);
-        reporte.setTitle("Control Academico KINAL");
-        Stage stageReporte = (Stage) reporte.getDialogPane().getScene().getWindow();
-        stageReporte.getIcons().add(new Image(PAQUETE_IMAGES + "ICONO.png"));
-        reporte.setHeaderText(null);
-        reporte.setContentText("Lo lamento, Esta función es solo para subscriptores premium :( .");
-        reporte.showAndWait();
+        Map <String, Object > parametros = new HashMap<>();
+        parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"horarios-module.png");
+        GenerarReporte.getInstance().mostrarReporte("Horarios.jasper", parametros, "Reporte de Horarios");
     }
     
     private ObservableList getHorarios() {

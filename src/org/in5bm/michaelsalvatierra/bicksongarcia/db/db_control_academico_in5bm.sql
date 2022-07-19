@@ -119,6 +119,24 @@ CREATE TABLE IF NOT EXISTS asignaciones_alumnos(
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+DROP TABLE IF EXISTS rol;
+CREATE TABLE IF NOT EXISTS rol(
+	id INT NOT NULL,
+    descripcion VARCHAR (50) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS usuario;
+CREATE TABLE IF NOT EXISTS usuario(
+	user VARCHAR(25) NOT NULL,
+    pass  VARCHAR(255) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    rol_id INT NOT NULL,
+    PRIMARY KEY (user),
+    CONSTRAINT fk_usuario_rol
+		FOREIGN KEY (rol_id) REFERENCES rol(id)
+);
+
 #----------------------------INSERCIONES EN TABLAS--------------------------#
 
 -- 1 INSERT ALUMNO
@@ -133,7 +151,17 @@ CREATE PROCEDURE sp_alumnos_create(
     IN _apellido2 VARCHAR(15)
     )
 	BEGIN
-		INSERT INTO alumnos (carne, nombre1, nombre2, nombre3, apellido1, apellido2) VALUES (_carne, _nombre1, _nombre2, _nombre3, _apellido1, _apellido2);
+		INSERT INTO alumnos (carne,
+        nombre1,
+        nombre2,
+        nombre3,
+        apellido1,
+        apellido2) VALUES (_carne,
+        _nombre1,
+        _nombre2,
+        _nombre3,
+        _apellido1,
+        _apellido2);
 	END $$
 DELIMITER ;
 
@@ -152,8 +180,24 @@ CREATE PROCEDURE sp_instructores_create(
     IN _fecha_nacimiento DATE
     )
 	BEGIN
-		INSERT INTO instructores(nombre1, nombre2, nombre3, apellido1, apellido2, direccion, email, telefono,fecha_nacimiento) 
-        VALUES ( _nombre1, _nombre2, _nombre3, _apellido1, _apellido2, _direccion,_email, _telefono,_fecha_nacimiento);
+		INSERT INTO instructores(nombre1,
+        nombre2,
+        nombre3,
+        apellido1,
+        apellido2,
+        direccion,
+        email,
+        telefono,
+        fecha_nacimiento) 
+        VALUES ( _nombre1,
+        _nombre2,
+        _nombre3,
+        _apellido1,
+        _apellido2,
+        _direccion,
+        _email,
+        _telefono,
+        _fecha_nacimiento);
 	END $$
 DELIMITER ;
 
@@ -168,8 +212,16 @@ CREATE PROCEDURE sp_salones_create(
     IN _nivel INT
     )
 	BEGIN 
-    INSERT salones(codigo_salon, descripcion, capacidad_maxima, edificio, nivel) 
-        VALUES (_codigo_salon, _descripcion, _capacidad_maxima, _edificio, _nivel);
+    INSERT salones(codigo_salon,
+    descripcion,
+    capacidad_maxima,
+    edificio,
+    nivel) 
+        VALUES (_codigo_salon,
+        _descripcion,
+        _capacidad_maxima,
+        _edificio,
+        _nivel);
 	END $$
 DELIMITER ;
 
@@ -184,8 +236,16 @@ CREATE PROCEDURE sp_carreras_tecnicas_create(
     IN _jornada VARCHAR(10)
     )
 	BEGIN
-		INSERT INTO carreras_tecnicas(codigo_tecnico, carrera, grado, seccion, jornada) 
-        VALUES (_codigo_tecnico, _carrera, _grado, _seccion, _jornada);
+		INSERT INTO carreras_tecnicas(codigo_tecnico,
+        carrera,
+        grado,
+        seccion,
+        jornada) 
+        VALUES (_codigo_tecnico,
+        _carrera,
+        _grado,
+        _seccion,
+        _jornada);
 	END $$
 DELIMITER ;
 
@@ -202,8 +262,20 @@ CREATE PROCEDURE sp_horarios_create(
     IN _viernes TINYINT(1)
     )
 	BEGIN
-		INSERT INTO horarios(horario_inicio, horario_final , lunes, martes, miercoles, jueves, viernes) 
-        VALUES (_horario_inicio, _horario_final ,_lunes, _martes, _miercoles, _jueves, _viernes);
+		INSERT INTO horarios(horario_inicio,
+        horario_final,
+        lunes,
+        martes,
+        miercoles,
+        jueves,
+        viernes) 
+        VALUES (_horario_inicio,
+        _horario_final,
+        _lunes,
+        _martes,
+        _miercoles,
+        _jueves,
+        _viernes);
 	END $$
 DELIMITER ;
 
@@ -221,8 +293,22 @@ CREATE PROCEDURE sp_cursos_create(
 	IN _salon_id VARCHAR(5)
     )
 	BEGIN
-		INSERT INTO cursos(nombre_curso, ciclo, cupo_maximo, cupo_minimo, carrera_tecnica_id ,horario_id, instructor_id, salon_id) 
-        VALUES (_nombre_curso, _ciclo, _cupo_maximo, _cupo_minimo, _carrera_tecnica_id, _horario_id, _instructor_id, _salon_id);
+		INSERT INTO cursos(nombre_curso,
+        ciclo,
+        cupo_maximo,
+        cupo_minimo,
+        carrera_tecnica_id, 
+        horario_id,
+        instructor_id,
+        salon_id) 
+        VALUES (_nombre_curso,
+        _ciclo,
+        _cupo_maximo,
+        _cupo_minimo,
+        _carrera_tecnica_id,
+        _horario_id,
+        _instructor_id,
+        _salon_id);
 	END $$
 DELIMITER ;
 
@@ -235,8 +321,12 @@ CREATE PROCEDURE sp_asignaciones_create(
     IN _fecha_asignacion DATETIME
     )
 	BEGIN
-		INSERT INTO asignaciones_alumnos( alumno_id, curso_id, fecha_asignacion) 
-        VALUES ( _alumno_id, _curso_id, _fecha_asignacion);
+		INSERT INTO asignaciones_alumnos( alumno_id,
+        curso_id,
+        fecha_asignacion) 
+        VALUES ( _alumno_id,
+        _curso_id,
+        _fecha_asignacion);
 	END $$
 DELIMITER ;
 
@@ -317,7 +407,13 @@ CREATE PROCEDURE sp_alumnos_update(
     IN _apellido2 VARCHAR(15)
     )
 	BEGIN
-		UPDATE alumnos AS al SET al.carne = _carne , al.nombre1 = _nombre1, al.nombre2 = _nombre2, al.nombre3 = _nombre3, al.apellido1 = _apellido1, al.apellido2 = _apellido2 
+		UPDATE alumnos AS al 
+        SET al.carne = _carne,
+        al.nombre1 = _nombre1,
+        al.nombre2 = _nombre2,
+        al.nombre3 = _nombre3,
+        al.apellido1 = _apellido1,
+        al.apellido2 = _apellido2 
         WHERE al.carne = _carne;
 	END $$
 DELIMITER ;
@@ -338,8 +434,17 @@ CREATE PROCEDURE sp_instructores_update(
     IN _fecha_nacimiento DATE
     )
 	BEGIN
-		UPDATE instructores AS ins SET ins.id = _id , ins.nombre1 = _nombre1, ins.nombre2 = _nombre2, ins.nombre3 = _nombre3, 
-        ins.apellido1 = _apellido1 , ins.apellido2 = _apellido2 , ins.direccion = _direccion, ins.email = _email, ins.telefono = _telefono ,ins.fecha_nacimiento = _fecha_nacimiento
+		UPDATE instructores AS ins
+        SET ins.id = _id ,
+        ins.nombre1 = _nombre1,
+        ins.nombre2 = _nombre2,
+        ins.nombre3 = _nombre3, 
+        ins.apellido1 = _apellido1,
+        ins.apellido2 = _apellido2,
+        ins.direccion = _direccion,
+        ins.email = _email,
+        ins.telefono = _telefono,
+        ins.fecha_nacimiento = _fecha_nacimiento
         WHERE ins.id = _id;
 	END $$
 DELIMITER ;
@@ -355,7 +460,12 @@ CREATE PROCEDURE sp_salones_update(
     IN _nivel INT
     )
 	BEGIN 
-    UPDATE salones AS sa SET sa.codigo_salon = _codigo_salon, sa.descripcion = _descripcion, sa.capacidad_maxima = _capacidad_maxima, sa.edificio = _edificio, sa.nivel = _nivel
+    UPDATE salones AS sa 
+    SET sa.codigo_salon = _codigo_salon,
+    sa.descripcion = _descripcion,
+    sa.capacidad_maxima = _capacidad_maxima,
+    sa.edificio = _edificio,
+    sa.nivel = _nivel
     WHERE sa.codigo_salon = _codigo_salon;
 	END $$
 DELIMITER ;
@@ -371,7 +481,12 @@ CREATE PROCEDURE sp_carreras_tecnicas_update(
     IN _jornada VARCHAR(10)
     )
 	BEGIN
-		UPDATE carreras_tecnicas AS ca SET ca.codigo_tecnico = _codigo_tecnico, ca.carrera = _carrera, ca.grado = _grado, ca.seccion = _seccion, ca.jornada = _jornada
+		UPDATE carreras_tecnicas AS ca 
+        SET ca.codigo_tecnico = _codigo_tecnico,
+        ca.carrera = _carrera,
+        ca.grado = _grado,
+        ca.seccion = _seccion,
+        ca.jornada = _jornada
         WHERE ca.codigo_tecnico = _codigo_tecnico;
 	END $$
 DELIMITER ;
@@ -390,7 +505,14 @@ CREATE PROCEDURE sp_horarios_update(
     IN _viernes TINYINT(1)
     )
 	BEGIN
-		UPDATE horarios AS ho SET ho.horario_inicio = _horario_inicio , ho.horario_final = _horario_final, ho.lunes = _lunes , ho.martes = _martes , ho.miercoles = _miercoles, ho.jueves = _jueves, ho.viernes = _viernes
+		UPDATE horarios AS ho 
+        SET ho.horario_inicio = _horario_inicio,
+        ho.horario_final = _horario_final,
+        ho.lunes = _lunes,
+        ho.martes = _martes,
+        ho.miercoles = _miercoles,
+        ho.jueves = _jueves,
+        ho.viernes = _viernes
         WHERE ho.id = _id;
 	END $$
 DELIMITER ;
@@ -410,7 +532,14 @@ CREATE PROCEDURE sp_cursos_update(
 	IN _salon_id VARCHAR(5)
     )
 	BEGIN
-		UPDATE cursos AS cu SET cu.nombre_curso = _nombre_curso, cu.ciclo = _ciclo, cu.cupo_maximo = _cupo_maximo, cu.cupo_minimo = _cupo_minimo, cu.carrera_tecnica_id = _carrera_tecnica_id, cu.horario_id = _horario_id, cu.instructor_id = _instructor_id, cu.salon_id = _salon_id
+		UPDATE cursos AS cu 
+        SET cu.nombre_curso = _nombre_curso,
+        cu.ciclo = _ciclo, cu.cupo_maximo = _cupo_maximo,
+        cu.cupo_minimo = _cupo_minimo,
+        cu.carrera_tecnica_id = _carrera_tecnica_id
+        , cu.horario_id = _horario_id,
+        cu.instructor_id = _instructor_id,
+        cu.salon_id = _salon_id
         WHERE cu.id = _id;
 	END $$
 DELIMITER ;
@@ -425,7 +554,10 @@ CREATE PROCEDURE sp_asignaciones_update(
     IN _fecha_asignacion DATETIME
     )
 	BEGIN
-		UPDATE asignaciones_alumnos AS au SET au.alumno_id = _alumno_id, au.curso_id = _curso_id , au.fecha_asignacion = _fecha_asignacion
+		UPDATE asignaciones_alumnos AS au 
+        SET au.alumno_id = _alumno_id,
+        au.curso_id = _curso_id,
+        au.fecha_asignacion = _fecha_asignacion
         WHERE _id = id;
 	END $$
 DELIMITER ;
@@ -503,7 +635,13 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_alumnos_read_by$$
 CREATE PROCEDURE sp_alumnos_read_by(IN _carne VARCHAR(7) )
 	BEGIN
-		SELECT al.carne, al.nombre1, al.nombre2, al.nombre3, al.apellido1, al.apellido2 FROM alumnos AS al WHERE al.carne = _carne ;
+		SELECT al.carne,
+        al.nombre1,
+        al.nombre2,
+        al.nombre3,
+        al.apellido1,
+        al.apellido2 
+        FROM alumnos AS al WHERE al.carne = _carne ;
 	END $$
 DELIMITER ;
 
@@ -512,7 +650,17 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_instructores_read_by $$
 CREATE PROCEDURE sp_instructores_read_by(IN _id  int )
 	BEGIN
-		SELECT ins.id , ins.nombre1, ins.nombre2, ins.nombre3, ins.apellido1, ins.apellido2, ins.direccion, ins.email, ins.telefono, ins.fecha_nacimiento FROM instructores AS ins WHERE ins.id=_id;
+		SELECT ins.id ,
+        ins.nombre1,
+        ins.nombre2,
+        ins.nombre3,
+        ins.apellido1,
+        ins.apellido2,
+        ins.direccion,
+        ins.email,
+        ins.telefono,
+        ins.fecha_nacimiento 
+        FROM instructores AS ins WHERE ins.id=_id;
 	END $$
 DELIMITER ;
 
@@ -521,7 +669,11 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_salones_read_by $$
 CREATE PROCEDURE sp_salones_read_by(IN _codigo_salon  VARCHAR(5) )
 	BEGIN 
-		SELECT sa.codigo_salon, sa.descripcion, sa.capacidad_maxima, sa.edificio, sa.nivel FROM SALONES AS sa WHERE sa.codigo_salon = _codigo_salon;
+		SELECT sa.codigo_salon,
+        sa.descripcion,
+        sa.capacidad_maxima,
+        sa.edificio, sa.nivel 
+        FROM SALONES AS sa WHERE sa.codigo_salon = _codigo_salon;
 	END $$
 DELIMITER ;
 
@@ -530,7 +682,12 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_carreras_tecnicas_read_by $$
 CREATE PROCEDURE sp_carreras_tecnicas_read_by(IN _codigo_tecnico VARCHAR(5))
 	BEGIN
-		SELECT ca.codigo_tecnico, ca.carrera, ca.grado, ca.seccion, ca.jornada FROM carreras_tecnicas AS ca WHERE ca.codigo_tecnico = _codigo_tecnico;
+		SELECT ca.codigo_tecnico,
+        ca.carrera,
+        ca.grado,
+        ca.seccion,
+        ca.jornada 
+        FROM carreras_tecnicas AS ca WHERE ca.codigo_tecnico = _codigo_tecnico;
 	END $$
 DELIMITER ;
 
@@ -539,7 +696,14 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_horarios_read_by $$
 CREATE PROCEDURE sp_horarios_read_by(IN _id INT)
 	BEGIN
-		SELECT ho.id,ho.horario_inicio, ho.horario_final , ho.lunes, ho.martes, ho.miercoles, ho.jueves, ho.viernes FROM horarios AS ho WHERE ho.id = _id;
+		SELECT ho.id,
+        ho.horario_inicio,
+        ho.horario_final,
+        ho.lunes, ho.martes,
+        ho.miercoles,
+        ho.jueves,
+        ho.viernes 
+        FROM horarios AS ho WHERE ho.id = _id;
 	END $$
 DELIMITER ;
 
@@ -548,7 +712,16 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_cursos_read_by $$
 CREATE PROCEDURE sp_cursos_read_by(IN _id INT)
 	BEGIN
-		SELECT cu.id ,cu.nombre_curso, cu.ciclo, cu.cupo_maximo,cu.cupo_minimo, cu.carrera_tecnica_id, cu.horario_id, cu.instructor_id, cu.salon_id FROM cursos AS cu WHERE cu.id = _id;
+		SELECT cu.id,
+        cu.nombre_curso,
+        cu.ciclo,
+        cu.cupo_maximo,
+        cu.cupo_minimo,
+        cu.carrera_tecnica_id,
+        cu.horario_id,
+        cu.instructor_id,
+        cu.salon_id 
+        FROM cursos AS cu WHERE cu.id = _id;
 	END $$
 DELIMITER ;
 
@@ -557,11 +730,13 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS sp_asignaciones_read_by $$
 CREATE PROCEDURE sp_asignaciones_read_by(IN _id INT)
 	BEGIN
-		SELECT au.id, au.alumno_id, au.curso_id, au.fecha_asignacion FROM asignaciones_alumnos AS au WHERE au.id = _id;
+		SELECT au.id,
+        au.alumno_id,
+        au.curso_id,
+        au.fecha_asignacion 
+        FROM asignaciones_alumnos AS au WHERE au.id = _id;
 	END $$
 DELIMITER ;
-
-
 
 -- LLAMADA A LOS PROCEDIMIENTOS ALMACENAOS
 
@@ -649,3 +824,190 @@ CALL sp_asignaciones_create('2021157',8, DATE(current_date()));
 CALL sp_asignaciones_create('2021158',9, DATE(current_date()));
 CALL sp_asignaciones_create('2021159',10, DATE(current_date()));
 SELECT * FROM asignaciones_alumnos;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_alumnos_report$$
+CREATE PROCEDURE sp_alumnos_report()
+	BEGIN
+		SELECT a.carne, CONCAT((IF(a.nombre1 IS NULL,"",a.nombre1))," ",
+        (IF(a.nombre2 IS NULL,"",a.nombre2))," ",
+        (IF(a.nombre3 IS NULL,"",a.nombre3))," ",
+        (IF(a.apellido1 IS NULL,"",a.apellido1))," ",
+        (IF(a.apellido2 IS NULL," ",a.apellido2))) AS Nombre_completo
+        FROM alumnos AS a;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_instructores_report$$
+CREATE PROCEDURE sp_instructores_report()
+	BEGIN
+		SELECT i.id, CONCAT((IF(i.nombre1 IS NULL,"",i.nombre1))," ",
+        (IF(i.nombre2 IS NULL,"",i.nombre2))," ",
+        (IF(i.nombre3 IS NULL,"",i.nombre3))," ",
+        (IF(i.apellido1 IS NULL,"",i.apellido1))," ",
+        (IF(i.apellido2 IS NULL," ",i.apellido2))) AS Nombre_completo, 
+        i.direccion, i.email, i.telefono, i.fecha_nacimiento  
+        FROM instructores AS i;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_carreras_tecnicas_report$$
+CREATE PROCEDURE sp_carreras_tecnicas_report()
+	BEGIN
+		SELECT ca.codigo_tecnico, ca.carrera, ca.grado, ca.seccion, ca.jornada FROM carreras_tecnicas AS ca;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_horarios_report$$
+CREATE PROCEDURE sp_horarios_report()
+	BEGIN
+		SELECT ho.id, ho.horario_inicio, ho.horario_final,
+        IF((ho.lunes IS TRUE),"Si","No") AS lunes,
+        IF((ho.martes IS TRUE),"Si","No") AS martes,
+        IF((ho.miercoles IS TRUE),"Si","No") AS miercoles,
+        IF((ho.jueves IS TRUE),"Si","No") AS jueves,
+        IF((ho.viernes IS TRUE),"Si","No") AS viernes
+        FROM horarios AS ho;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_salones_report$$
+CREATE PROCEDURE sp_salones_report()
+	BEGIN
+		SELECT sa.codigo_salon, sa.descripcion, sa.capacidad_maxima, sa.edificio, sa.nivel FROM SALONES AS sa;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_asignaciones_alumnos_report$$
+CREATE PROCEDURE sp_asignaciones_alumnos_report()
+	BEGIN
+		SELECT au.id,
+        a.carne,
+        CONCAT((IF(a.nombre1 IS NULL,"",a.nombre1))," ",
+        (IF(a.nombre2 IS NULL,"",a.nombre2))," ",
+        (IF(a.nombre3 IS NULL,"",a.nombre3))," ",
+        (IF(a.apellido1 IS NULL,"",a.apellido1))," ",
+        (IF(a.apellido2 IS NULL," ",a.apellido2))) AS Nombre_completo, 
+        cu.id,
+        cu.nombre_curso,
+        au.fecha_asignacion 
+        FROM asignaciones_alumnos AS au
+        INNER JOIN alumnos AS a
+			ON au.alumno_id = a.carne
+        INNER JOIN cursos AS cu
+			ON au.curso_id = cu.id;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_cursos_report$$
+CREATE PROCEDURE sp_cursos_report()
+	BEGIN
+		SELECT cu.id,
+        cu.nombre_curso,
+        cu.ciclo,
+        cu.cupo_maximo,
+        cu.cupo_minimo,
+        ca.carrera,
+        ho.horario_inicio ,
+        ho.horario_final,
+        CONCAT((IF(ins.nombre1 IS NULL,"",ins.nombre1))," ",
+        (IF(ins.nombre2 IS NULL,"",ins.nombre2))," ",
+        (IF(ins.nombre3 IS NULL,"",ins.nombre3))," ",
+        (IF(ins.apellido1 IS NULL,"",ins.apellido1))," ",
+        (IF(ins.apellido2 IS NULL," ",ins.apellido2))) AS Nombre_completo, 
+		sal.descripcion
+        FROM cursos AS cu
+        INNER JOIN carreras_tecnicas AS ca
+			ON cu.carrera_tecnica_id = ca.codigo_tecnico
+        INNER JOIN horarios AS ho
+			ON cu.horario_id = ho.id
+        INNER JOIN instructores AS ins
+			ON cu.instructor_id = ins.id
+        INNER JOIN salones AS sal
+		   ON cu.salon_id = sal.codigo_salon;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_asignaciones_alumnos_report_by_id$$
+CREATE PROCEDURE sp_asignaciones_alumnos_report_by_id(IN _id INT)
+	BEGIN
+		SELECT au.id,
+        a.carne,
+        CONCAT((IF(a.nombre1 IS NULL,"",a.nombre1))," ",
+        (IF(a.nombre2 IS NULL,"",a.nombre2))," ",
+        (IF(a.nombre3 IS NULL,"",a.nombre3))," ",
+        (IF(a.apellido1 IS NULL,"",a.apellido1))," ",
+        (IF(a.apellido2 IS NULL," ",a.apellido2))) AS Nombre_completo, 
+        cu.id,
+        cu.nombre_curso,
+        au.fecha_asignacion 
+        FROM asignaciones_alumnos AS au
+        INNER JOIN alumnos AS a
+			ON au.alumno_id = a.carne
+        INNER JOIN cursos AS cu
+			ON au.curso_id = cu.id
+		WHERE au.id=_id;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_cursos_report_by_id$$
+CREATE PROCEDURE sp_cursos_report_by_id(IN _id INT)
+	BEGIN
+		SELECT cu.id,
+        cu.nombre_curso,
+        cu.ciclo,
+        cu.cupo_maximo,
+        cu.cupo_minimo,
+        ca.carrera,
+        ho.horario_inicio ,
+        ho.horario_final,
+        CONCAT((IF(ins.nombre1 IS NULL,"",ins.nombre1))," ",
+        (IF(ins.nombre2 IS NULL,"",ins.nombre2))," ",
+        (IF(ins.nombre3 IS NULL,"",ins.nombre3))," ",
+        (IF(ins.apellido1 IS NULL,"",ins.apellido1))," ",
+        (IF(ins.apellido2 IS NULL," ",ins.apellido2))) AS Nombre_completo, 
+		sal.descripcion
+        FROM cursos AS cu
+        INNER JOIN carreras_tecnicas AS ca
+			ON cu.carrera_tecnica_id = ca.codigo_tecnico
+        INNER JOIN horarios AS ho
+			ON cu.horario_id = ho.id
+        INNER JOIN instructores AS ins
+			ON cu.instructor_id = ins.id
+        INNER JOIN salones AS sal
+		   ON cu.salon_id = sal.codigo_salon
+           WHERE cu.id=_id;
+    END $$
+DELIMITER ;
+
+INSERT INTO rol (id, descripcion) VALUES (1,"Administrador");
+INSERT INTO rol(id, descripcion) VALUES (2,"Estandar"); 
+
+INSERT INTO usuario(user, pass, nombre,rol_id) VALUES ("root","admin","Jorge Perez", 1 );
+INSERT INTO usuario(user, pass, nombre,rol_id) VALUES ("kinal","12345","Luis Canto", 2 );
+
+SELECT * FROM usuario;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_user_exists$$
+CREATE PROCEDURE sp_user_exists(IN _user VARCHAR(25), IN _pass VARCHAR(255))
+	BEGIN
+		SELECT 
+        r.descripcion,
+        (IF(u.user IS NULL,"NO EXISTE","EXISTE"))
+        FROM usuario AS u 
+        INNER JOIN rol AS r 
+        ON _user =u.user 
+        AND _pass = u.pass AND u.rol_id = r.id;
+    END $$
+DELIMITER ;
+
+CALL sp_user_exists("root","admin");

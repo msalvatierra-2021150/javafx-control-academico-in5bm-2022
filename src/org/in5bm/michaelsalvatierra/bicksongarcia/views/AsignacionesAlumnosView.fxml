@@ -18,7 +18,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.in5bm.michaelsalvatierra.bicksongarcia.controllers.AsignacionesAlumnosController">
    <children>
-      <AnchorPane id="borde-izquierdo" prefHeight="602.0" prefWidth="246.0" stylesheets="@../resources/css/EstiloModulo.css">
+      <AnchorPane id="borde-izquierdo" onMouseClicked="#limpiarSeleccionado" prefHeight="602.0" prefWidth="246.0" stylesheets="@../resources/css/EstiloModulo.css">
          <children>
             <Pane id="upper-pane" layoutX="36.0" prefHeight="179.0" prefWidth="168.0" stylesheets="@../resources/css/EstiloModulo.css">
                <children>
@@ -71,7 +71,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <Pane id="pane-fondo" layoutX="246.0" prefHeight="602.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
+      <Pane id="pane-fondo" layoutX="246.0" onMouseClicked="#limpiarSeleccionado" prefHeight="602.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
          <children>
             <Pane id="titulo" layoutY="-2.0" prefHeight="128.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
                <children>
@@ -82,7 +82,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <GridPane layoutX="6.0" layoutY="136.0" prefHeight="109.0" prefWidth="733.0">
+            <GridPane layoutX="6.0" layoutY="136.0" prefHeight="121.0" prefWidth="778.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.20001220703125" minWidth="10.0" prefWidth="127.79998779296875" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.20001220703125" minWidth="10.0" prefWidth="104.20001220703125" />
@@ -124,9 +124,10 @@
                   <Label fx:id="lblAdvertenciaCursoId" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                   <ComboBox fx:id="cmbCarneAlumno" disable="true" prefHeight="25.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                   <ComboBox fx:id="cmbIdCurso" disable="true" prefHeight="25.0" prefWidth="230.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <Label fx:id="lblAdvertenciaFechaAsignacion" prefHeight="9.0" prefWidth="155.0" textFill="RED" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <TableView fx:id="tblAsignacionDeAlumnos" layoutX="74.0" layoutY="252.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="297.0" prefWidth="630.0" styleClass="table">
+            <TableView fx:id="tblAsignacionDeAlumnos" layoutX="74.0" layoutY="272.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="277.0" prefWidth="630.0" styleClass="table">
               <columns>
                   <TableColumn fx:id="colId" prefWidth="47.20001220703125" text="Id" />
                 <TableColumn fx:id="colCarneAlumno" prefWidth="168.79995727539062" text="Carné del alumno" />
@@ -146,6 +147,16 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Label layoutX="327.0" layoutY="248.0" prefHeight="18.0" prefWidth="124.0" text="Total de horarios en: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTotalAsignaciones" layoutX="447.0" layoutY="248.0" prefHeight="18.0" prefWidth="124.0" text="0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

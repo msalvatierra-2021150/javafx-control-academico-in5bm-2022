@@ -19,7 +19,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.in5bm.michaelsalvatierra.bicksongarcia.controllers.CursosController">
    <children>
-      <AnchorPane id="borde-izquierdo" prefHeight="602.0" prefWidth="246.0" stylesheets="@../resources/css/EstiloModulo.css">
+      <AnchorPane id="borde-izquierdo" onMouseClicked="#limpiarSeleccionado" prefHeight="602.0" prefWidth="246.0" stylesheets="@../resources/css/EstiloModulo.css">
          <children>
             <Pane id="upper-pane" layoutX="36.0" prefHeight="179.0" prefWidth="168.0" stylesheets="@../resources/css/EstiloModulo.css">
                <children>
@@ -77,7 +77,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <Pane id="pane-fondo" layoutX="246.0" prefHeight="602.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
+      <Pane id="pane-fondo" layoutX="246.0" onMouseClicked="#limpiarSeleccionado" prefHeight="602.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
          <children>
             <Pane id="titulo" layoutY="-2.0" prefHeight="128.0" prefWidth="778.0" stylesheets="@../resources/css/EstiloModulo.css">
                <children>
@@ -180,7 +180,7 @@
                   <Spinner fx:id="spnCiclo" disable="true" prefHeight="26.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
-            <TableView fx:id="tblCurso" layoutX="17.0" layoutY="366.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="227.0" prefWidth="745.0" styleClass="table">
+            <TableView fx:id="tblCurso" layoutX="17.0" layoutY="392.0" onKeyReleased="#seleccionarElemento" onMouseClicked="#seleccionarElemento" prefHeight="201.0" prefWidth="745.0" styleClass="table">
               <columns>
                   <TableColumn fx:id="colId" prefWidth="39.199981689453125" text="Id" />
                 <TableColumn fx:id="colNombreCurso" prefWidth="130.4000244140625" text="Nombre del curso" />
@@ -193,6 +193,16 @@
                   <TableColumn fx:id="colIdSalon" maxWidth="0.0" minWidth="75.0" prefWidth="0.0" text="Id de salón" />
               </columns>
             </TableView>
+            <Label layoutX="327.0" layoutY="373.0" prefHeight="18.0" prefWidth="124.0" text="Total de cursos en: ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTotalCursos" layoutX="442.0" layoutY="373.0" prefHeight="18.0" prefWidth="124.0" text="0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

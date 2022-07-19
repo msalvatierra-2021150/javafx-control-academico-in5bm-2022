@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -30,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.in5bm.michaelsalvatierra.bicksongarcia.db.Conexion;
 import org.in5bm.michaelsalvatierra.bicksongarcia.models.Instructores;
+import org.in5bm.michaelsalvatierra.bicksongarcia.reports.GenerarReporte;
 import org.in5bm.michaelsalvatierra.bicksongarcia.system.Principal;
 
 /**
@@ -150,6 +153,12 @@ public class InstructoresController implements Initializable{
     @FXML
     private ImageView imgEliminar;
     
+    @FXML
+    private Label lblTotalInstructores;
+    
+    @FXML
+    private Label lblAdvertenciaFechaNacimiento;
+    
     private Instructores instructoresSelect = new Instructores();
     private Principal escenarioPrincipal;
 
@@ -162,11 +171,12 @@ public class InstructoresController implements Initializable{
     }
     
     private final String PAQUETE_IMAGES = "org/in5bm/michaelsalvatierra/bicksongarcia/resources/images/";
-    private ObservableList<Instructores> listaCarrerasTecnicas;
+    private ObservableList<Instructores> listaInstructores;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarInstructores();
+        conteoRegistros();
     }
 
     @FXML
@@ -198,6 +208,7 @@ public class InstructoresController implements Initializable{
                         btnEliminar.setDisable(false);
                         btnReporte.setDisable(false);
                         validacionesfalse();
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -240,10 +251,11 @@ public class InstructoresController implements Initializable{
                     deshabilitarCampos();
                     if (eliminarInstructores())
                     {
-                        listaCarrerasTecnicas.remove(tblInstructores.getSelectionModel().getFocusedIndex());
+                        listaInstructores.remove(tblInstructores.getSelectionModel().getFocusedIndex());
                         cargarInstructores();
                         limpiarCampos();
                         deshabilitarCampos();
+                        conteoRegistros();
                         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                         alerta.setTitle("Exito");
                         alerta.setHeaderText(null);
@@ -334,6 +346,14 @@ public class InstructoresController implements Initializable{
         }
     }
     
+    private void conteoRegistros(){
+        int total= 0;
+        for (int i = 0; i < listaInstructores.size(); i++) {
+            total = total + 1;
+        }
+        lblTotalInstructores.setText(String.valueOf(total));
+    }
+    
     private boolean agregarInstructores() {
         Instructores instructor = new Instructores();
 //        instructor.setId(Integer.parseInt(lblId.getText()));
@@ -346,7 +366,6 @@ public class InstructoresController implements Initializable{
         instructor.setEmail(txtEmail.getText());
         instructor.setTelefono(txtTelefono.getText());
         instructor.setFechaDeNacimiento(java.sql.Date.valueOf(dtpFechaDeNacimiento.getValue()));
-        
         PreparedStatement pstmt = null;
         try{
             String SQL ="CALL sp_instructores_create(?,?,?,?,?,?,?,?,?);";
@@ -468,6 +487,7 @@ public class InstructoresController implements Initializable{
         lblAdvertenciApelido1.setText("");
         lblAdvertenciaEmail.setText("");
         lblAdvertenciaTelefono.setText("");
+        lblAdvertenciaFechaNacimiento.setText("");
     }
 
     @FXML
@@ -522,13 +542,9 @@ public class InstructoresController implements Initializable{
     }
     
     private void reporte() {
-        Alert reporte = new Alert(Alert.AlertType.INFORMATION);
-        reporte.setTitle("Control Academico KINAL");
-        Stage stageReporte = (Stage) reporte.getDialogPane().getScene().getWindow();
-        stageReporte.getIcons().add(new Image(PAQUETE_IMAGES + "ICONO.png"));
-        reporte.setHeaderText(null);
-        reporte.setContentText("Lo lamento, Esta función es solo para subscriptores premium :( .");
-        reporte.showAndWait();
+        Map <String, Object > parametros = new HashMap<>();
+        parametros.put("LOGO_ASIGNACION",PAQUETE_IMAGES+"instructores-module.png");
+        GenerarReporte.getInstance().mostrarReporte("Instructores.jasper", parametros, "Reporte de Instructores");
     }
     
     private ObservableList getInstructores(){
@@ -553,7 +569,7 @@ public class InstructoresController implements Initializable{
                 instructor.setFechaDeNacimiento(rs.getDate(10));
                 lista.add(instructor);
                 System.out.println(instructor.toString());
-                listaCarrerasTecnicas = FXCollections.observableArrayList(lista);
+                listaInstructores = FXCollections.observableArrayList(lista);
             }
 
         } catch (SQLException e) {
@@ -575,7 +591,7 @@ public class InstructoresController implements Initializable{
                 e.printStackTrace();
             }
         }
-        return listaCarrerasTecnicas;
+        return listaInstructores;
     }
     
     private void cargarInstructores(){
@@ -597,6 +613,7 @@ public class InstructoresController implements Initializable{
         boolean validacion2=true;
         boolean validacion3=true;
         boolean validacion4=true;
+        boolean validacion5=true;
         
             if (txtNombre1.getText().isEmpty()) {
                 validacion1=false;
@@ -613,6 +630,11 @@ public class InstructoresController implements Initializable{
             if (txtTelefono.getText().isEmpty()) {
                 validacion4=false;
                 lblAdvertenciaTelefono.setText("CAMPO NECESARIO");
+            }
+            
+            if(dtpFechaDeNacimiento.getValue() ==null){
+                validacion5=false;
+                lblAdvertenciaFechaNacimiento.setText("CAMPO NECESARIO");
             }
 //            String nombre1 = txtNombre1.getText().trim();
 //            validacion1 = nombre1.matches("^[A-Za-z]\\w{4,29}$");
@@ -641,7 +663,7 @@ public class InstructoresController implements Initializable{
 //            if (validacion5 != true) {
 //            }
 
-            if (validacion1 & validacion2 &validacion3 & validacion4) {
+            if (validacion1 & validacion2 &validacion3 & validacion4 & validacion5) {
                 return true;
             }
             return false;
